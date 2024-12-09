@@ -44,6 +44,10 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+
+	ViewProjection viewProjection_;	//ビュープロジェクション
+
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

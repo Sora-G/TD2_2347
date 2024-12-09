@@ -11,6 +11,9 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	//ビュープロジェクションの初期化
+	viewProjection_.Initialize();
 }
 
 void GameScene::Update() {}
