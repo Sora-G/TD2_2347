@@ -20,7 +20,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//プレイヤーのモデルの読み込み
-	playerModel_ = Model::CreateFromOBJ("ufo");
+	playerModel_ = Model::Create();
 
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
