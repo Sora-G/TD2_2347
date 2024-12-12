@@ -113,6 +113,6 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::DebugCamera()
+void GameScene::DebugCameraProc()
 {
 }
