@@ -23,9 +23,10 @@ void Player::Update()
 	//ワールド行列を転送
 	worldTransform_.TransferMatrix();
 
-	//移動関数
+	//移動処理
 	Move();
-
+	//旋回処理
+	Rotate();
 
 	//ImGui表示
 	ImGui::Begin("Player");
@@ -78,4 +79,20 @@ void Player::Move()
 
 	//ワールド座標に移動ベクトルを加算
 	worldTransform_.translation_ += moveVec;
+}
+
+void Player::Rotate()
+{
+	//旋回速度[ラジアン/フレーム]
+	const float kRotSpd = 0.02f;
+
+	//キー入力で旋回
+	if (input_->PushKey(DIK_E))
+	{
+		worldTransform_.rotation_.y += kRotSpd;
+	}
+	if (input_->PushKey(DIK_Q))
+	{
+		worldTransform_.rotation_.y -= kRotSpd;
+	}
 }

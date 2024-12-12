@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "AxisIndicator.h"
 
 #define DEBUG
 
@@ -20,7 +21,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//プレイヤーのモデルの読み込み
-	playerModel_ = Model::Create();
+	playerModel_ = Model::CreateFromOBJ("Player");
 
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
@@ -33,6 +34,11 @@ void GameScene::Initialize() {
 
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
+
+	//軸方向表示の表示を有効
+	AxisIndicator::GetInstance()->SetVisible(true);
+	//軸方向表示が表示するビュープロジェクションを指定する（アドレス渡し）
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
 void GameScene::Update() {
@@ -40,29 +46,8 @@ void GameScene::Update() {
 	//プレイヤーの更新処理
 	player_->Update();
 
-#ifdef DEBUG
-
-	if (input_->TriggerKey(DIK_C))
-	{
-		isDebugCameraActive_ = true;
-	}
-	if (input_->TriggerKey(DIK_X))
-	{
-		isDebugCameraActive_ = false;
-	}
-
-#endif // DEBUG
-	
-	//
-	if (isDebugCameraActive_ == true)
-	{
-		//デバッグカメラの更新処理
-		debugCamera_->Update();
-
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		//ビュープロジェクション行列の転送
-	}
+	//カメラ処理
+	DebugCameraProc();
 }
 
 void GameScene::Draw() {
@@ -115,4 +100,34 @@ void GameScene::Draw() {
 
 void GameScene::DebugCameraProc()
 {
+#ifdef DEBUG
+
+	//キー操作でカメラのアクティブを切り替える
+	if (input_->TriggerKey(DIK_C))
+	{
+		isDebugCameraActive_ = true;
+	}
+	if (input_->TriggerKey(DIK_X))
+	{
+		isDebugCameraActive_ = false;
+	}
+
+#endif // DEBUG
+
+	//デバッグカメラがアクティブの時...
+	if (isDebugCameraActive_)
+	{
+		//デバッグカメラの更新処理
+		debugCamera_->Update();
+
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+	}
+	else
+	{
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+	}
 }

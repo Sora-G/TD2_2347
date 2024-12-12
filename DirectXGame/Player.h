@@ -22,7 +22,15 @@ public:
 	/// </summary>
 	void Draw(ViewProjection& viewprojection);
 
+	/// <summary>
+	/// 移動処理
+	/// </summary>
 	void Move();
+
+	/// <summary>
+	/// 旋回処理
+	/// </summary>
+	void Rotate();
 
 private:
 
