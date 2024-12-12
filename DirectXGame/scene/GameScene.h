@@ -9,6 +9,7 @@
 #include "WorldTransform.h"
 #include"SpeceSphere.h"
 #include"DebugCamera.h"
+#include "Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -41,10 +42,16 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	//衝突判定と応答
+	//void CheckAllCollisions();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	/// ゲームシーン用
+	uint32_t textureHandle_ = 0;
 
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
@@ -59,6 +66,11 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
 
+	// 自キャラ
+	Player* player_ = nullptr;
+
+	// 3Dモデルの生成
+	Model* model_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

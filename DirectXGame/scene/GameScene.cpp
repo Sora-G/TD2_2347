@@ -12,6 +12,9 @@ GameScene::~GameScene() {
 	delete SpeceSphere_;
 
 	delete debugCamera_;
+
+	delete player_;
+	delete model_;
 }
 
 void GameScene::Initialize() {
@@ -21,6 +24,15 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	viewProjection_.Initialize();
+
+	// 3Dモデルの生成
+	model_ = Model::CreateFromOBJ("player", true);
+
+	// 自キャラの生成
+	player_ = new Player();
+
+	// 自キャラの初期化
+	player_->Initialize(model_, textureHandle_);
 
 	//天球の生成
 	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
@@ -49,6 +61,11 @@ void GameScene::Update() {
 	// デバッグカメラの更新
 	debugCamera_->Update();
 
+	// 自キャラの更新
+	player_->Update();
+
+	// 当たり判定
+	//CheckAllCollisions();
 #ifdef _DEBUG
 
 	if (input_->TriggerKey(DIK_0)) {
@@ -100,6 +117,8 @@ void GameScene::Draw() {
 	//天球
 	SpeceSphere_->Draw();
 
+	// 自キャラの描画
+	player_->Draw(viewProjection_);
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
