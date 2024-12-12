@@ -7,7 +7,6 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Player.h"
 #include "DebugCamera.h"
 
 /// <summary>
