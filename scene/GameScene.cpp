@@ -2,9 +2,16 @@
 #include "TextureManager.h"
 #include <cassert>
 
+#define DEBUG
+
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	//プレイヤーの解放
+	delete playerModel_;
+	delete player_;
+	delete debugCamera_;
+}
 
 void GameScene::Initialize() {
 
@@ -12,11 +19,51 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	//プレイヤーのモデルの読み込み
+	playerModel_ = Model::CreateFromOBJ("ufo");
+
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
+
+	//プレイヤーの生成
+	player_ = new Player();
+	//プレイヤーの初期化
+	player_->Initialize(playerModel_);
+
+
+	//デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1280, 720);
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	//プレイヤーの更新処理
+	player_->Update();
+
+#ifdef DEBUG
+
+	if (input_->TriggerKey(DIK_C))
+	{
+		isDebugCameraActive_ = true;
+	}
+	if (input_->TriggerKey(DIK_X))
+	{
+		isDebugCameraActive_ = false;
+	}
+
+#endif // DEBUG
+	
+	//
+	if (isDebugCameraActive_ == true)
+	{
+		//デバッグカメラの更新処理
+		debugCamera_->Update();
+
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		//ビュープロジェクション行列の転送
+	}
+}
 
 void GameScene::Draw() {
 
@@ -41,6 +88,9 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
 
+	//プレイヤーの描画
+	player_->Draw(viewProjection_);
+
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
@@ -61,4 +111,8 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::DebugCamera()
+{
 }

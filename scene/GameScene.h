@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Player.h"
+#include "DebugCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -39,13 +41,24 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// デバッグカメラの処理
+	/// </summary>
+	void DebugCameraProc();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+	ViewProjection viewProjection_;//ビュープロジェクション
 
-	ViewProjection viewProjection_;	//ビュープロジェクション
+	bool isDebugCameraActive_ = false;//デバッグカメラを有効にするか
+
+	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
+
+	Model* playerModel_;//プレイヤーのモデル
+	Player* player_ = nullptr;//プレイヤー
 
 
 	/// <summary>
