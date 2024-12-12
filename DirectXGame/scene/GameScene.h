@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include"SpeceSphere.h"
+#include"DebugCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -43,6 +45,19 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	// ビュープロジェクション
+	ViewProjection viewProjection_;
+
+	//天球
+	SpeceSphere* SpeceSphere_ = nullptr;
+
+	// 天球モデルデータ
+	Model* modelSkydome_ = nullptr;
+
+	// デバッグカメラ
+	bool isDebugCameraActive_ = false;
+	DebugCamera* debugCamera_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

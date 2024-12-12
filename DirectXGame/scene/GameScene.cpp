@@ -1,21 +1,80 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include <AxisIndicator.h>
+
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+
+	//天球
+	delete SpeceSphere_;
+
+	delete debugCamera_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	viewProjection_.Initialize();
+
+	//天球の生成
+	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
+	SpeceSphere_ = new SpeceSphere();
+	SpeceSphere_->Initialize(modelSkydome_, &viewProjection_);
+
+	// ビュープロジェクションの初期化
+	viewProjection_.farZ = 700;
+	viewProjection_.Initialize();
+
+	// デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1280, 720);
+	// 軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+
+	// 軸方向表示が参照するビュープロジェクションを指定する
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	//天球の更新
+	SpeceSphere_->Update();
+
+	// デバッグカメラの更新
+	debugCamera_->Update();
+
+#ifdef _DEBUG
+
+	if (input_->TriggerKey(DIK_0)) {
+		isDebugCameraActive_ = true;
+	}
+
+#endif // _DEBUG
+
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		// ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+	}
+	else {
+		// ビュープロジェクション行列の更新と転送
+		viewProjection_.UpdateMatrix();
+	}
+
+}
 
 void GameScene::Draw() {
+
+
+
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -37,6 +96,10 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
+
+	//天球
+	SpeceSphere_->Draw();
+
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
