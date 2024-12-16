@@ -19,6 +19,7 @@ void Player::Initialize(Model* model)
 
 void Player::Update()
 {
+	//アフィン変換
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	//ワールド行列を転送
 	worldTransform_.TransferMatrix();
@@ -71,10 +72,18 @@ void Player::Move()
 	if (input_->PushKey(DIK_SPACE))
 	{
 		moveVec.y += kMoveSpd;
+
+		worldTransform_.rotation_.x = -0.3f;
 	}
-	if (input_->PushKey(DIK_LSHIFT))
+	else if (input_->PushKey(DIK_LSHIFT))
 	{
 		moveVec.y -= kMoveSpd;
+
+		worldTransform_.rotation_.x = 0.3f;
+	}
+	else
+	{
+		worldTransform_.rotation_.x = 0.0f;
 	}
 
 	//ワールド座標に移動ベクトルを加算

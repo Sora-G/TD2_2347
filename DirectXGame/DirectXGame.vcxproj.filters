@@ -58,6 +58,9 @@
     <Filter Include="MathUtilityForText">
       <UniqueIdentifier>{948b29ae-30e5-4b18-aec9-fd1782f13434}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayerBullet">
+      <UniqueIdentifier>{dbe952f0-f3fd-441b-a481-389ef68ca269}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="MathUtilityForText.cpp">
       <Filter>MathUtilityForText</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>PlayerBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="MathUtilityForText.h">
       <Filter>MathUtilityForText</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>PlayerBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
