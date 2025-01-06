@@ -100,7 +100,7 @@ void Enemy::Update() {
 	case Enemy::Phase::Leave:
 
 		// 移動(ベクトルを加算)
-		worldTransform_.translation_ += Vector3(0.05f, 0.05f, 0.0f);
+		//worldTransform_.translation_ += Vector3(0.05f, 0.05f, 0.0f);
 
 		break;
 	}
@@ -155,6 +155,7 @@ void Enemy::Fire() {
 
 	// ベクトルの長さを速さに合わせる
 	Vector3 velocity(Normal * kEnemyBulletSpeed);
+
 
 	// 弾を生成し、初期化
 	EnemyBullet* newBullet = new EnemyBullet();
