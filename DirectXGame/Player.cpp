@@ -45,10 +45,18 @@ void Player::Update() {
 	}
 
 	//押した方向で移動ベクトルを変更（上下）
-	if (input_->PushKey(DIK_W)) {
+	if (input_->PushKey(DIK_SPACE)) {
 		move.y += kCharacterSpd;
-	} else if (input_->PushKey(DIK_S)) {
+	} else if (input_->PushKey(DIK_LSHIFT)) {
 		move.y -= kCharacterSpd;
+	}
+
+	//押した方向で移動ベクトルを変更（奥前）
+	if (input_->PushKey(DIK_S)) {
+		move.z -= kCharacterSpd;
+	}
+	else if (input_->PushKey(DIK_W)) {
+		move.z += kCharacterSpd;
 	}
 
 	//座標移動（ベクトルの加算）
@@ -114,11 +122,16 @@ void Player::Rotate() {
 	} else if (input_->PushKey(DIK_E)) {
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
+
+	if (worldTransform_.rotation_.y <= -6.28f || worldTransform_.rotation_.y >= 6.28)
+	{
+		worldTransform_.rotation_.y = 0.0f;
+	}
 }
 
 void Player::Attack() {
 	//発射キーを押したら
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_B)) {
 		//弾の速度
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
