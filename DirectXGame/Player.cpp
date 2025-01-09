@@ -15,7 +15,7 @@ Player::~Player() {
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	// NULLポインタチェック
-	assert(model);
+	//assert(model);
 
 	// 引数
 	model_ = model;
@@ -104,17 +104,17 @@ void Player::Update() {
 	}
 }
 
-void Player::Draw(ViewProjection& viewProjection) {
-
-	// 3Dモデルの描画
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-
-	// 弾描画
-	for (PlayerBullet* bullet : bullets_) {
-
-		bullet->Draw(viewProjection);
-	}
-}
+//void Player::Draw(ViewProjection& viewProjection) {
+//
+//	// 3Dモデルの描画
+//	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+//
+//	// 弾描画
+//	for (PlayerBullet* bullet : bullets_) {
+//
+//		bullet->Draw(viewProjection);
+//	}
+//}
 
 void Player::Rotate() {
 
