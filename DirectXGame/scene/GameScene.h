@@ -78,7 +78,7 @@ private: // メンバ変数
 	RailCamera* railCamera_ = nullptr;
 
 	//デバッグカメラ有効
-	bool isDebugCameraActive_ = false;
+	bool isDebugCameraActive_ = true;
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;

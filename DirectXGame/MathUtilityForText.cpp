@@ -116,7 +116,8 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rot, const Vecto
 		0, 0, 0, 1
 	};
 
-	Matrix4x4 RotateMatZ = {cosf(rot.z), sinf(rot.z), 0.0f, 0.0f, 
+	Matrix4x4 RotateMatZ = {
+		cosf(rot.z), sinf(rot.z), 0.0f, 0.0f, 
 		-sinf(rot.z), cosf(rot.z), 0.0f, 0.0f, 
 		0.0f, 0.0f, 1.0f, 0.0f, 
 		0.0f, 0.0f, 0.0f, 1.0f
