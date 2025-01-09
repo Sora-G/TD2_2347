@@ -70,6 +70,13 @@ private: // メンバ変数
 
 	//敵のモデルデータ
 	Model* modelEnemy_ = nullptr;
+	Model* modelEnemy2_ = nullptr;
+	/*Model* modelEnemy3_ = nullptr;
+	Model* modelEnemy4_ = nullptr;
+	Model* modelEnemy5_ = nullptr;
+	Model* modelEnemy6_ = nullptr;*/
+
+	std::vector<std::unique_ptr<Enemy>> enemies;
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;

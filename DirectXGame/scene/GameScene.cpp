@@ -55,13 +55,27 @@ void GameScene::Initialize() {
 
 	// テクスチャ読み込み
 	modelEnemy_ = Model::CreateFromOBJ("Venus", true);
+	modelEnemy2_ = Model::CreateFromOBJ("Sun", true);
+	/*modelEnemy3_ = Model::CreateFromOBJ("Mars", true);
+	modelEnemy4_ = Model::CreateFromOBJ("Moon", true);
+	modelEnemy5_ = Model::CreateFromOBJ("Jupiter", true);
+	modelEnemy6_ = Model::CreateFromOBJ("Earth", true);*/
 
 	enemy_ = new Enemy();
 
-	enemy_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 10.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
+	auto enemy1_ = std::make_unique<Enemy>();
+	enemy1_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 10.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
+	enemies.push_back(std::move(enemy1_));
+
+	auto enemy2 = std::make_unique<Enemy>();
+	enemy2->Initialize(modelEnemy2_, Vector3{ 15.0f, 0.0f, 10.0f }, Vector3{ 0.0f, 0.0f, 0.1f });
+	enemies.push_back(std::move(enemy2));
 
 	// 敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
+
+
+
 
 	// 天球の生成
 	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
@@ -86,7 +100,10 @@ void GameScene::Update() {
 	debugCamera_->Update();
 
 	// 敵の更新
-	enemy_->Update();
+	for (auto& enemy : enemies) {
+		enemy_->Update();
+	}
+
 
 	// 当たり判定
 	CheckAllCollisions();
@@ -154,8 +171,9 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 
 	// 敵の描画
-	enemy_->Draw(viewProjection_);
-
+	for (auto& enemy : enemies) {
+		enemy_->Draw(viewProjection_);
+	}
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

@@ -7,6 +7,7 @@
 #include <list>
 #include"Sprite.h"
 #include"Material.h"
+#include <DirectXMath.h>
 
 // 自機クラスの前方宣言
 class Player;
