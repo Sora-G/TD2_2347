@@ -32,7 +32,7 @@ void Enemy::Initialize(Model* model, const Vector3& position, const Vector3& vel
 	model_ = model;
 	//textureHandle_ = textureHandle;
 
-	
+
 
 	// viewProjection_ = viewProjection;
 
@@ -87,13 +87,13 @@ void Enemy::Update() {
 	default:
 
 		// 移動(ベクトルを加算)
-		worldTransform_.translation_ += velocity_;
+		//worldTransform_.translation_ += velocity_;
 
 		// 規定の位置に到着したら離脱
-		if (worldTransform_.translation_.z < 0.0f) {
+		/*if (worldTransform_.translation_.z < 0.0f) {
 
 			phase_ = Phase::Leave;
-		}
+		}*/
 
 		break;
 
@@ -139,7 +139,7 @@ void Enemy::Fire() {
 	assert(player_);
 
 	// 弾の速度
-	const float kEnemyBulletSpeed = 1.0f;
+	const float kEnemyBulletSpeed = 0.1f;
 
 	// 自機のワールド座標取得
 	Vector3 PlayerWorldPos = player_->GetWorldPosition();

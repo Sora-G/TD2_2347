@@ -66,17 +66,13 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 
 	//敵
-	Enemy* enemy_ = nullptr;
+	Enemy* enemy_ = new Enemy();
+	Enemy* enemy2_ = new Enemy();
+	Enemy* enemy3_ = new Enemy();
+	Enemy* enemy4_ = new Enemy();
+	Enemy* enemy5_ = new Enemy();
+	Enemy* enemy6_ = new Enemy();
 
-	//敵のモデルデータ
-	Model* modelEnemy_ = nullptr;
-	Model* modelEnemy2_ = nullptr;
-	/*Model* modelEnemy3_ = nullptr;
-	Model* modelEnemy4_ = nullptr;
-	Model* modelEnemy5_ = nullptr;
-	Model* modelEnemy6_ = nullptr;*/
-
-	std::vector<std::unique_ptr<Enemy>> enemies;
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;
