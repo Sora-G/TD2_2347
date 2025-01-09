@@ -30,9 +30,9 @@ void Enemy::Initialize(Model* model, const Vector3& position, const Vector3& vel
 
 	// 引数
 	model_ = model;
+	//textureHandle_ = textureHandle;
 
-	// テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("uvChecker.png");
+	
 
 	// viewProjection_ = viewProjection;
 
@@ -125,7 +125,7 @@ void Enemy::Update() {
 void Enemy::Draw(ViewProjection& viewProjection) {
 
 	// 3Dモデルの描画
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	model_->Draw(worldTransform_, viewProjection);
 
 	// 弾描画
 	for (EnemyBullet* bullet : bullets_) {

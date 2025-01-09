@@ -5,6 +5,8 @@
 #include "Model.h"
 #include "WorldTransform.h"
 #include <list>
+#include"Sprite.h"
+#include"Material.h"
 
 // 自機クラスの前方宣言
 class Player;
@@ -65,6 +67,9 @@ public: // メンバ関数
 	// 半径
 	const float EnemyRad = 1;
 
+	//敵の攻撃開始範囲
+	//const float EnemyAttackRad;
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -97,8 +102,9 @@ private:
 	// 弾
 	std::list<EnemyBullet*> bullets_;
 
-
-
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	
+
 };

@@ -52,9 +52,13 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
 	// 敵の初期化&生成
+
+	// テクスチャ読み込み
+	modelEnemy_ = Model::CreateFromOBJ("Venus", true);
+
 	enemy_ = new Enemy();
 
-	enemy_->Initialize(model_, Vector3{ 10.0f, 0.0f, 10.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
+	enemy_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 10.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
 
 	// 敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
@@ -124,6 +128,9 @@ void GameScene::Draw() {
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
 
+
+
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -134,13 +141,16 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
 
+
+
 	// スカイドームの辨官
 	skyDome_->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	// 自キャラの描画
+
+// 自キャラの描画
 	player_->Draw(viewProjection_);
 
 	// 敵の描画

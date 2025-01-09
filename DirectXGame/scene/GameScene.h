@@ -68,6 +68,9 @@ private: // メンバ変数
 	//敵
 	Enemy* enemy_ = nullptr;
 
+	//敵のモデルデータ
+	Model* modelEnemy_ = nullptr;
+
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
