@@ -29,6 +29,12 @@ public:
 	/// <returns>ワールドトランスフォームを取得</returns>
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 
+	/// <summary>
+	/// 親となるワールドトランスフォームをセット
+	/// </summary>
+	/// <param name="parent">親となるワールドトランスフォームをセット</param>
+	void SetParent(const WorldTransform* parent);
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;

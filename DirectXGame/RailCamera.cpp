@@ -87,44 +87,44 @@ void RailCamera::Update() {
 
 	// カメラの移動速度
 	Vector3 moveSpd = {};
-	const float kMoveSpd = 0.2f;
+	//const float kMoveSpd = 0.2f;
 
 	//座標の位置を加算
-	if (input_->PushKey(DIK_T))
-	{
-		moveSpd.y += kMoveSpd;
-	}
-	if (input_->PushKey(DIK_G)) {
-		moveSpd.y -= kMoveSpd;
-	}
-	if (input_->PushKey(DIK_F)) {
-		moveSpd.x -= kMoveSpd;
-	}
-	if (input_->PushKey(DIK_H)) {
-		moveSpd.x += kMoveSpd;
-	}
-	
-	moveSpd.z = static_cast<float>(input_->GetWheel()) / 5.0f;
+	//if (input_->PushKey(DIK_T))
+	//{
+	//	moveSpd.y += kMoveSpd;
+	//}
+	//if (input_->PushKey(DIK_G)) {
+	//	moveSpd.y -= kMoveSpd;
+	//}
+	//if (input_->PushKey(DIK_F)) {
+	//	moveSpd.x -= kMoveSpd;
+	//}
+	//if (input_->PushKey(DIK_H)) {
+	//	moveSpd.x += kMoveSpd;
+	//}
+	//
+	//moveSpd.z = static_cast<float>(input_->GetWheel()) / 5.0f;
 
 	worldTransform_.translation_ += moveSpd;
 
 
 	//カメラの回転速度
 	Vector3 rotateSpd = {};
-	const float kLotateSpd = 0.02f;
+	//const float kLotateSpd = 0.02f;
 
-	if (input_->PushKey(DIK_U)) {
-		rotateSpd.x += kLotateSpd;
-	}
-	if (input_->PushKey(DIK_I)) {
-		rotateSpd.x -= kLotateSpd;
-	}
-	if (input_->PushKey(DIK_Y)){
-		rotateSpd.y += kLotateSpd;
-	}
-	if (input_->PushKey(DIK_R)) {
-		rotateSpd.y -= kLotateSpd;
-	}
+	//if (input_->PushKey(DIK_U)) {
+	//	rotateSpd.x += kLotateSpd;
+	//}
+	//if (input_->PushKey(DIK_I)) {
+	//	rotateSpd.x -= kLotateSpd;
+	//}
+	//if (input_->PushKey(DIK_Y)){
+	//	rotateSpd.y += kLotateSpd;
+	//}
+	//if (input_->PushKey(DIK_R)) {
+	//	rotateSpd.y -= kLotateSpd;
+	//}
 
 	worldTransform_.rotation_ += rotateSpd;
 
@@ -142,4 +142,9 @@ void RailCamera::Update() {
 	ImGui::DragFloat3("rotate", &worldTransform_.rotation_.x, 0.02f);
 
 	ImGui::End();
+}
+
+void RailCamera::SetParent(const WorldTransform* parent)
+{
+	worldTransform_.parent_ = parent;
 }

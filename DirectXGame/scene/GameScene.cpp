@@ -62,10 +62,11 @@ void GameScene::Initialize() {
 	//レールカメラの生成
 	railCamera_ = new RailCamera();
 	//レールカメラの初期化
-	railCamera_->Initialize(Vector3(0.0f, 0.0f, -40.0f), Vector3(0.0f, 0.0f, 0.0f));
+	railCamera_->Initialize(Vector3(0.0f, 5.0f, -40.0f), Vector3(0.0f, 0.0f, 0.0f));
 
 	//自キャラとレールカメラの親子関係を結ぶ
-	player_->SetParent(&railCamera_->GetWorldTransform());
+	//player_->SetParent(&railCamera_->GetWorldTransform());
+	railCamera_->SetParent(&player_->GetWorldTransform());
 
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);

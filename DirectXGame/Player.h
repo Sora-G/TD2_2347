@@ -56,6 +56,12 @@ public:
 	const float rad = 1.0f;
 
 	/// <summary>
+	/// ワールドトランスフォームを取得
+	/// </summary>
+	/// <returns>ワールドトランスフォームを取得</returns>
+	const WorldTransform& GetWorldTransform() { return worldTransform_; }
+
+	/// <summary>
 	/// 親となるワールドトランスフォームをセット
 	/// </summary>
 	/// <param name="parent">親となるワールドトランスフォームをセット</param>

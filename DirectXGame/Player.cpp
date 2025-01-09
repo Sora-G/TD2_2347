@@ -55,14 +55,14 @@ void Player::Update() {
 	worldTransform_.translation_ += move;
 
 	//移動制限
-	const float kMoveLimitX = 35.0f;
-	const float kMoveLimitY = 19.0f;
+	//const float kMoveLimitX = 35.0f;
+	//const float kMoveLimitY = 19.0f;
 
 	//範囲を超えない処理
-	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
-	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
-	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
-	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+	//worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	//worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	//worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	//worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
 	//旋回処理
 	Rotate();
