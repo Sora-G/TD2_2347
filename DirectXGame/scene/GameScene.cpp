@@ -73,17 +73,17 @@ void GameScene::Initialize() {
 
 	enemy_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
 
-	enemy2_->Initialize(modelEnemy2_, Vector3{ 15.0f, 2.0f, 0.0f }, Vector3{ 0.0f, 0.0f, 0.1f });
+	enemy2_->Initialize(modelEnemy2_, Vector3{ 15.0f, 2.0f, 10.0f }, Vector3{ 0.0f, 0.0f, 0.1f });
 
-	enemy3_->Initialize(modelEnemy3_, Vector3{ 20.0f, 4.0f, 0.0f }, Vector3{ 0.0f, 0.0f, 0.0f });
+	enemy3_->Initialize(modelEnemy3_, Vector3{ 20.0f, 4.0f, -10.0f }, Vector3{ 0.0f, 0.0f, 0.0f });
 
-	enemy4_->Initialize(modelEnemy4_, Vector3{ 15.0f, 6.0f, 0.0f }, Vector3{ 0.0f, 1.0f, 0.1f });
+	enemy4_->Initialize(modelEnemy4_, Vector3{ 15.0f, 6.0f, 10.0f }, Vector3{ 0.0f, 1.0f, 0.1f });
 
-	enemy5_->Initialize(modelEnemy5_, Vector3{ 5.0f, -2.0f, 0.0f }, Vector3{ 1.0f, 0.0f, -0.1f });
+	enemy5_->Initialize(modelEnemy5_, Vector3{ 5.0f, -2.0f, -10.0f }, Vector3{ 1.0f, 0.0f, -0.1f });
 
-	enemy6_->Initialize(modelEnemy6_, Vector3{ -10.0f, -4.0f, 0.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
+	enemy6_->Initialize(modelEnemy6_, Vector3{ -10.0f, -4.0f, 10.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
 
-	enemy7_->Initialize(modelEnemy7_, Vector3{ -15.0f, -8.0f, 0.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
+	enemy7_->Initialize(modelEnemy7_, Vector3{ -15.0f, -8.0f, -10.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
 
 	// 敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
