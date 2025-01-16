@@ -98,10 +98,18 @@ private:
 	// 弾
 	EnemyBullet* bullet_ = nullptr;
 
+	float BulletDMG = 2;
+
+	//HP
+	const float EnemyHp = 10;
+
 	// 弾
 	std::list<EnemyBullet*> bullets_;
 
 	// 自キャラ
 	Player* player_ = nullptr;
+
+
+
 
 };
