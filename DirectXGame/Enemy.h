@@ -109,7 +109,4 @@ private:
 	// 自キャラ
 	Player* player_ = nullptr;
 
-
-
-
 };
