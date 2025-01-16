@@ -49,7 +49,7 @@ public: // メンバ関数
 	void Fire();
 
 	// 発射間隔
-	static const int kFireInterval = 20;
+	static const int kFireInterval = 600;
 
 	// 接近フェーズ初期化
 	void ApproacPphase();

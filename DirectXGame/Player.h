@@ -47,6 +47,9 @@ public:
 	// 半径
 	const float PlayerRad = 1;
 
+	//HP
+	const float PlayerHp = 20;
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -71,7 +74,6 @@ private:
 	// 弾
 	std::list<PlayerBullet*> bullets_;
 
-	//HP
-	const float PlayerHp = 20;
+
 
 };

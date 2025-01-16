@@ -156,7 +156,9 @@ void Enemy::Fire() {
 	// ベクトルの長さを速さに合わせる
 	Vector3 velocity(Normal * kEnemyBulletSpeed);
 
+	//攻撃範囲
 	if (sqrt(pow(Difference.x, 2.0) + pow(Difference.y, 2.0) + pow(Difference.z, 2.0) * 1.0) < 20.0f) {
+
 		// 弾を生成し、初期化
 		EnemyBullet* newBullet = new EnemyBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
@@ -165,8 +167,6 @@ void Enemy::Fire() {
 		bullets_.push_back(newBullet);
 
 	}
-
-
 
 }
 
@@ -186,9 +186,6 @@ void Enemy::ApproacPphase() {
 		// 発射タイマーを初期化
 		FireTimer = kFireInterval;
 	}
-
-
-	//一定距離に入ったら攻撃
 
 }
 
