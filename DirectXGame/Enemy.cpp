@@ -156,7 +156,7 @@ void Enemy::Fire() {
 	// ベクトルの長さを速さに合わせる
 	Vector3 velocity(Normal * kEnemyBulletSpeed);
 
-	if (Difference.x <= 10.0f) {
+	if (sqrt(pow(Difference.x, 2.0) + pow(Difference.y, 2.0) + pow(Difference.z, 2.0) * 1.0) < 20.0f) {
 		// 弾を生成し、初期化
 		EnemyBullet* newBullet = new EnemyBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
