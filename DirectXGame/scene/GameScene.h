@@ -73,6 +73,7 @@ private: // メンバ変数
 	Enemy* enemy5_ = new Enemy();
 	Enemy* enemy6_ = new Enemy();
 	Enemy* enemy7_ = new Enemy();
+	Enemy* enemy8_ = new Enemy();
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;
