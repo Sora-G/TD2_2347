@@ -139,7 +139,7 @@ void Enemy::Fire() {
 	assert(player_);
 
 	// 弾の速度
-	const float kEnemyBulletSpeed = 0.1f;
+	const float kEnemyBulletSpeed = 0.5f;
 
 	// 自機のワールド座標取得
 	Vector3 PlayerWorldPos = player_->GetWorldPosition();
@@ -156,18 +156,22 @@ void Enemy::Fire() {
 	// ベクトルの長さを速さに合わせる
 	Vector3 velocity(Normal * kEnemyBulletSpeed);
 
+	if (Difference.x <= 10.0f) {
+		// 弾を生成し、初期化
+		EnemyBullet* newBullet = new EnemyBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
-	// 弾を生成し、初期化
-	EnemyBullet* newBullet = new EnemyBullet();
-	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		// 弾を登録する
+		bullets_.push_back(newBullet);
 
-	// 弾を登録する
-	bullets_.push_back(newBullet);
+	}
+
+
+
 }
 
 // 接近フェーズ
 void Enemy::ApproacPphase() {
-
 	// 発射タイマー初期化
 	FireTimer = kFireInterval;
 
@@ -182,6 +186,10 @@ void Enemy::ApproacPphase() {
 		// 発射タイマーを初期化
 		FireTimer = kFireInterval;
 	}
+
+
+	//一定距離に入ったら攻撃
+
 }
 
 Vector3 Enemy::GetWorldPosition() {
@@ -193,6 +201,8 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.x = worldTransform_.translation_.x;
 	worldPos.y = worldTransform_.translation_.y;
 	worldPos.z = worldTransform_.translation_.z;
+
+
 
 	return worldPos;
 }

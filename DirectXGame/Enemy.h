@@ -68,8 +68,6 @@ public: // メンバ関数
 	// 半径
 	const float EnemyRad = 1;
 
-	//敵の攻撃開始範囲
-	//const float EnemyAttackRad;
 
 private:
 	// ワールド変換データ
@@ -105,7 +103,5 @@ private:
 
 	// 自キャラ
 	Player* player_ = nullptr;
-
-	
 
 };

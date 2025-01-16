@@ -30,7 +30,7 @@ public:
 	///< summary>
 	/// 描画
 	///  </summary>
-	/*void Draw(ViewProjection& viewProjection);*/
+	void Draw(ViewProjection& viewProjection);
 
 	void Rotate();
 
@@ -46,6 +46,8 @@ public:
 
 	// 半径
 	const float PlayerRad = 1;
+
+	//
 
 private:
 	// ワールド変換データ
