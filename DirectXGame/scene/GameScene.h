@@ -11,6 +11,7 @@
 #include"DebugCamera.h"
 #include"Enemy.h"
 #include"SkyDome.h"
+#include <list>
 
 /// <summary>
 /// ゲームシーン
@@ -66,14 +67,7 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 
 	//敵
-	Enemy* enemy_ = new Enemy();
-	Enemy* enemy2_ = new Enemy();
-	Enemy* enemy3_ = new Enemy();
-	Enemy* enemy4_ = new Enemy();
-	Enemy* enemy5_ = new Enemy();
-	Enemy* enemy6_ = new Enemy();
-	Enemy* enemy7_ = new Enemy();
-	Enemy* enemy8_ = new Enemy();
+	std::list<Enemy*> enemies_ = {};
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;

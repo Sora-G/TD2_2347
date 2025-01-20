@@ -15,7 +15,11 @@ GameScene::~GameScene() {
 
 	delete debugCamera_;
 
-	delete enemy_;
+	for (Enemy* e : enemies_)
+	{
+		delete e;
+	}
+	enemies_.clear();
 
 	// 天球
 	delete skyDome_;
@@ -73,7 +77,7 @@ void GameScene::Initialize() {
 	modelEnemy7_ = Model::CreateFromOBJ("Spiral", true);
 	modelEnemy8_ = Model::CreateFromOBJ("SoftCream", true);
 
-	enemy_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
+	/*enemy_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
 
 	enemy2_->Initialize(modelEnemy2_, Vector3{ 15.0f, 2.0f, 10.0f }, Vector3{ 0.0f, 0.0f, 0.1f });
 
@@ -87,10 +91,17 @@ void GameScene::Initialize() {
 
 	enemy7_->Initialize(modelEnemy7_, Vector3{ -15.0f, -8.0f, -10.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
 
-	enemy8_->Initialize(modelEnemy8_, Vector3{ -20.0f, 13.0f, -13.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
+	enemy8_->Initialize(modelEnemy8_, Vector3{ -20.0f, 13.0f, -13.0f }, Vector3{ 1.0f, 0.0f, 0.1f });*/
+
+	for (Enemy* e : enemies_) {
+
+		e->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
+
+	}
+
 
 	// 敵キャラに自キャラのアドレスを渡す
-	enemy_->SetPlayer(player_);
+	/*enemy_->SetPlayer(player_);
 
 	enemy2_->SetPlayer(player_);
 
@@ -104,7 +115,11 @@ void GameScene::Initialize() {
 
 	enemy7_->SetPlayer(player_);
 
-	enemy8_->SetPlayer(player_);
+	enemy8_->SetPlayer(player_);*/
+
+	for (Enemy* e : enemies_) {
+		e->SetPlayer(player_);
+	}
 
 	// 天球の生成
 	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
@@ -130,7 +145,7 @@ void GameScene::Update() {
 
 	// 敵の更新
 
-	enemy_->Update();
+	/*enemy_->Update();
 
 	enemy2_->Update();
 
@@ -144,7 +159,11 @@ void GameScene::Update() {
 
 	enemy7_->Update();
 
-	enemy8_->Update();
+	enemy8_->Update();*/
+
+	for (Enemy* e : enemies_) {
+		e->Update();
+	}
 
 	// 当たり判定
 	CheckAllCollisions();
@@ -216,7 +235,7 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 
 	// 敵の描画
-	enemy_->Draw(viewProjection_);
+	/*enemy_->Draw(viewProjection_);
 
 	enemy2_->Draw(viewProjection_);
 
@@ -230,7 +249,11 @@ void GameScene::Draw() {
 
 	enemy7_->Draw(viewProjection_);
 
-	enemy8_->Draw(viewProjection_);
+	enemy8_->Draw(viewProjection_);*/
+
+	for (Enemy* e : enemies_) {
+		e->Draw(viewProjection_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -252,202 +275,214 @@ void GameScene::Draw() {
 
 void GameScene::CheckAllCollisions() {
 
-	// 判定対象AとBの座標
-	Vector3 posA, posB;
-	Vector3 posA2, posB2;
-	Vector3 posA3, posB3;
-	Vector3 posA4, posB4;
-	Vector3 posA5, posB5;
-	Vector3 posA6, posB6;
-	Vector3 posA7, posB7;
-	Vector3 posA8, posB8;
+	//// 判定対象AとBの座標
+	//Vector3 posA, posB;
+	//Vector3 posA2, posB2;
+	//Vector3 posA3, posB3;
+	//Vector3 posA4, posB4;
+	//Vector3 posA5, posB5;
+	//Vector3 posA6, posB6;
+	//Vector3 posA7, posB7;
+	//Vector3 posA8, posB8;
 
-	// 自弾リストの取得
-	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets2 = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets3 = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets4 = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets5 = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets6 = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets7 = player_->GetBullets();
-	const std::list<PlayerBullet*>& playerBullets8 = player_->GetBullets();
+	//// 自弾リストの取得
+	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets2 = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets3 = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets4 = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets5 = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets6 = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets7 = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets8 = player_->GetBullets();
 
 
-	// 敵弾リストの取得
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets2 = enemy2_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets3 = enemy3_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets4 = enemy4_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets5 = enemy5_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets6 = enemy6_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets7 = enemy7_->GetEnemyBullets();
-	const std::list<EnemyBullet*>& enemyBullets8 = enemy7_->GetEnemyBullets();
+	//// 敵弾リストの取得
+	//const std::list<EnemyBullet*>& enemyBullets = enemy_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets2 = enemy2_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets3 = enemy3_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets4 = enemy4_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets5 = enemy5_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets6 = enemy6_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets7 = enemy7_->GetEnemyBullets();
+	//const std::list<EnemyBullet*>& enemyBullets8 = enemy7_->GetEnemyBullets();
 
 
 #pragma region 自キャラと敵弾の当たり判定
 	// 自キャラの座標
-	posA = player_->GetWorldPosition();
+	//posA = player_->GetWorldPosition();
 
-	// 自キャラと敵弾の当たり判定1
-	for (EnemyBullet* bullet_ : enemyBullets) {
+	// 自キャラと敵弾の当たり判定
+	//for (EnemyBullet* bullet_ : enemyBullets) {
 
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
 
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
 
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+
+	// 自弾と敵弾の当たり判定
+	/*for (PlayerBullet* bullet_ : playerBullet_) {
+
+		for (Enemy* enemy : enemies_) {
+
+
 		}
-	}
-
-	// 自キャラと敵弾の当たり判定2
-	for (EnemyBullet* bullet_ : enemyBullets2) {
-
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
-
-		// 座標AとBの距離を求める
-		float DistancePosAPosB2 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
-
-		// 弾と弾の交差判定
-		if (DistancePosAPosB2 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
-
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
-
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
-
-	// 自キャラと敵弾の当たり判定3
-	for (EnemyBullet* bullet_ : enemyBullets3) {
-
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
-
-		// 座標AとBの距離を求める
-		float DistancePosAPosB3 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
-
-		// 弾と弾の交差判定
-		if (DistancePosAPosB3 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
-
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
-
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
-
-	// 自キャラと敵弾の当たり判定4
-	for (EnemyBullet* bullet_ : enemyBullets4) {
-
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
-
-		// 座標AとBの距離を求める
-		float DistancePosAPosB4 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
-
-		// 弾と弾の交差判定
-		if (DistancePosAPosB4 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
-
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
-
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
-
-	// 自キャラと敵弾の当たり判定5
-	for (EnemyBullet* bullet_ : enemyBullets5) {
-
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
-
-		// 座標AとBの距離を求める
-		float DistancePosAPosB5 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
-
-		// 弾と弾の交差判定
-		if (DistancePosAPosB5 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
-
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
-
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
-
-	// 自キャラと敵弾の当たり判定6
-	for (EnemyBullet* bullet_ : enemyBullets6) {
-
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
-
-		// 座標AとBの距離を求める
-		float DistancePosAPosB6 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
-
-		// 弾と弾の交差判定
-		if (DistancePosAPosB6 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
-
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
-
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
-
-	// 自キャラと敵弾の当たり判定7
-	for (EnemyBullet* bullet_ : enemyBullets7) {
-
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
-
-		// 座標AとBの距離を求める
-		float DistancePosAPosB7 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
-
-		// 弾と弾の交差判定
-		if (DistancePosAPosB7 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
-
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
-
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
+	}*/
 
 
-	// 自キャラと敵弾の当たり判定8
-	for (EnemyBullet* bullet_ : enemyBullets8) {
 
-		// 敵弾の座標
-		posB = bullet_->GetWorldPosition();
+	//// 自キャラと敵弾の当たり判定2
+	//for (EnemyBullet* bullet_ : enemyBullets2) {
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB8 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB8 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB2 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
 
-			// 自キャラの衝突時のコールバックを呼び出す
-			player_->OnCollision();
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB2 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
 
-			// 敵弾の衝突時のコールバックを呼び出す
-			bullet_->OnCollision();
-		}
-	}
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+	//// 自キャラと敵弾の当たり判定3
+	//for (EnemyBullet* bullet_ : enemyBullets3) {
+
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
+
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB3 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB3 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+	//// 自キャラと敵弾の当たり判定4
+	//for (EnemyBullet* bullet_ : enemyBullets4) {
+
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
+
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB4 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB4 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+	//// 自キャラと敵弾の当たり判定5
+	//for (EnemyBullet* bullet_ : enemyBullets5) {
+
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
+
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB5 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB5 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+	//// 自キャラと敵弾の当たり判定6
+	//for (EnemyBullet* bullet_ : enemyBullets6) {
+
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
+
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB6 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB6 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+	//// 自キャラと敵弾の当たり判定7
+	//for (EnemyBullet* bullet_ : enemyBullets7) {
+
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
+
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB7 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB7 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
+
+
+	//// 自キャラと敵弾の当たり判定8
+	//for (EnemyBullet* bullet_ : enemyBullets8) {
+
+	//	// 敵弾の座標
+	//	posB = bullet_->GetWorldPosition();
+
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB8 = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB8 <= powf(bullet_->EnemyBulletRad + player_->PlayerRad, 2.0)) {
+
+	//		// 自キャラの衝突時のコールバックを呼び出す
+	//		player_->OnCollision();
+
+	//		// 敵弾の衝突時のコールバックを呼び出す
+	//		bullet_->OnCollision();
+	//	}
+	//}
 
 #pragma endregion
 
@@ -457,388 +492,388 @@ void GameScene::CheckAllCollisions() {
 #pragma region 自弾と敵キャラの当たり判定
 
 	// 敵キャラの座標
-	posA = enemy_->GetWorldPosition();
-	posA2 = enemy2_->GetWorldPosition();
+	//posA = enemy_->GetWorldPosition();
+	/*posA2 = enemy2_->GetWorldPosition();
 	posA3 = enemy3_->GetWorldPosition();
 	posA4 = enemy4_->GetWorldPosition();
 	posA5 = enemy5_->GetWorldPosition();
 	posA6 = enemy6_->GetWorldPosition();
 	posA7 = enemy7_->GetWorldPosition();
-	posA8 = enemy8_->GetWorldPosition();
+	posA8 = enemy8_->GetWorldPosition();*/
 
 
 	// 敵キャラと自弾の当たり判定1
-	for (PlayerBullet* PlayerBullet_ : playerBullets) {
+	//for (PlayerBullet* PlayerBullet_ : playerBullets) {
 
-		// 自弾の座標
-		posB = PlayerBullet_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB = PlayerBullet_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB <= powf(PlayerBullet_->PlayerBulletRad + enemy_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB <= powf(PlayerBullet_->PlayerBulletRad + enemy_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定2
-	for (PlayerBullet* PlayerBullet2_ : playerBullets2) {
+	//// 敵キャラと自弾の当たり判定2
+	//for (PlayerBullet* PlayerBullet2_ : playerBullets2) {
 
-		// 自弾の座標
-		posB2 = PlayerBullet2_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB2 = PlayerBullet2_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB2 = powf(posB2.x - posA2.x, 2.0) + powf(posB2.y - posA2.y, 2.0) + powf(posB2.z - posA2.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB2 = powf(posB2.x - posA2.x, 2.0) + powf(posB2.y - posA2.y, 2.0) + powf(posB2.z - posA2.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB2 <= powf(PlayerBullet2_->PlayerBulletRad + enemy2_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB2 <= powf(PlayerBullet2_->PlayerBulletRad + enemy2_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy2_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy2_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet2_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet2_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定3
-	for (PlayerBullet* PlayerBullet3_ : playerBullets3) {
+	//// 敵キャラと自弾の当たり判定3
+	//for (PlayerBullet* PlayerBullet3_ : playerBullets3) {
 
-		// 自弾の座標
-		posB3 = PlayerBullet3_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB3 = PlayerBullet3_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB3 = powf(posB3.x - posA3.x, 2.0) + powf(posB3.y - posA3.y, 2.0) + powf(posB3.z - posA3.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB3 = powf(posB3.x - posA3.x, 2.0) + powf(posB3.y - posA3.y, 2.0) + powf(posB3.z - posA3.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB3 <= powf(PlayerBullet3_->PlayerBulletRad + enemy3_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB3 <= powf(PlayerBullet3_->PlayerBulletRad + enemy3_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy3_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy3_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet3_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet3_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定4
-	for (PlayerBullet* PlayerBullet4_ : playerBullets4) {
+	//// 敵キャラと自弾の当たり判定4
+	//for (PlayerBullet* PlayerBullet4_ : playerBullets4) {
 
-		// 自弾の座標
-		posB4 = PlayerBullet4_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB4 = PlayerBullet4_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB4 = powf(posB4.x - posA4.x, 2.0) + powf(posB4.y - posA4.y, 2.0) + powf(posB4.z - posA4.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB4 = powf(posB4.x - posA4.x, 2.0) + powf(posB4.y - posA4.y, 2.0) + powf(posB4.z - posA4.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB4 <= powf(PlayerBullet4_->PlayerBulletRad + enemy4_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB4 <= powf(PlayerBullet4_->PlayerBulletRad + enemy4_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy4_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy4_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet4_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet4_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定5
-	for (PlayerBullet* PlayerBullet5_ : playerBullets5) {
+	//// 敵キャラと自弾の当たり判定5
+	//for (PlayerBullet* PlayerBullet5_ : playerBullets5) {
 
-		// 自弾の座標
-		posB5 = PlayerBullet5_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB5 = PlayerBullet5_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB5 = powf(posB5.x - posA5.x, 2.0) + powf(posB5.y - posA5.y, 2.0) + powf(posB5.z - posA5.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB5 = powf(posB5.x - posA5.x, 2.0) + powf(posB5.y - posA5.y, 2.0) + powf(posB5.z - posA5.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB5 <= powf(PlayerBullet5_->PlayerBulletRad + enemy5_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB5 <= powf(PlayerBullet5_->PlayerBulletRad + enemy5_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy5_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy5_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet5_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet5_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定6
-	for (PlayerBullet* PlayerBullet6_ : playerBullets6) {
+	//// 敵キャラと自弾の当たり判定6
+	//for (PlayerBullet* PlayerBullet6_ : playerBullets6) {
 
-		// 自弾の座標
-		posB6 = PlayerBullet6_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB6 = PlayerBullet6_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB6 = powf(posB6.x - posA6.x, 2.0) + powf(posB6.y - posA6.y, 2.0) + powf(posB6.z - posA6.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB6 = powf(posB6.x - posA6.x, 2.0) + powf(posB6.y - posA6.y, 2.0) + powf(posB6.z - posA6.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB6 <= powf(PlayerBullet6_->PlayerBulletRad + enemy6_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB6 <= powf(PlayerBullet6_->PlayerBulletRad + enemy6_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy6_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy6_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet6_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet6_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定7
-	for (PlayerBullet* PlayerBullet7_ : playerBullets7) {
+	//// 敵キャラと自弾の当たり判定7
+	//for (PlayerBullet* PlayerBullet7_ : playerBullets7) {
 
-		// 自弾の座標
-		posB7 = PlayerBullet7_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB7 = PlayerBullet7_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB7 = powf(posB7.x - posA7.x, 2.0) + powf(posB7.y - posA7.y, 2.0) + powf(posB7.z - posA7.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB7 = powf(posB7.x - posA7.x, 2.0) + powf(posB7.y - posA7.y, 2.0) + powf(posB7.z - posA7.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB7 <= powf(PlayerBullet7_->PlayerBulletRad + enemy7_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB7 <= powf(PlayerBullet7_->PlayerBulletRad + enemy7_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy7_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy7_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet7_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet7_->OnCollision();
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定8
-	for (PlayerBullet* PlayerBullet8_ : playerBullets8) {
+	//// 敵キャラと自弾の当たり判定8
+	//for (PlayerBullet* PlayerBullet8_ : playerBullets8) {
 
-		// 自弾の座標
-		posB8 = PlayerBullet8_->GetWorldPosition();
+	//	// 自弾の座標
+	//	posB8 = PlayerBullet8_->GetWorldPosition();
 
-		// 座標AとBの距離を求める
-		float DistancePosAPosB8 = powf(posB8.x - posA8.x, 2.0) + powf(posB8.y - posA8.y, 2.0) + powf(posB8.z - posA8.z, 2.0);
+	//	// 座標AとBの距離を求める
+	//	float DistancePosAPosB8 = powf(posB8.x - posA8.x, 2.0) + powf(posB8.y - posA8.y, 2.0) + powf(posB8.z - posA8.z, 2.0);
 
-		// 弾と弾の交差判定
-		if (DistancePosAPosB8 <= powf(PlayerBullet8_->PlayerBulletRad + enemy8_->EnemyRad, 2.0)) {
+	//	// 弾と弾の交差判定
+	//	if (DistancePosAPosB8 <= powf(PlayerBullet8_->PlayerBulletRad + enemy8_->EnemyRad, 2.0)) {
 
-			// 敵キャラの衝突時のコールバックを呼び出す
-			enemy8_->OnCollision();
+	//		// 敵キャラの衝突時のコールバックを呼び出す
+	//		enemy8_->OnCollision();
 
-			// 自弾の衝突時のコールバックを呼び出す
-			PlayerBullet8_->OnCollision();
-		}
-	}
+	//		// 自弾の衝突時のコールバックを呼び出す
+	//		PlayerBullet8_->OnCollision();
+	//	}
+	//}
 
 #pragma endregion
 
 #pragma region 自弾と敵弾の当たり判定
 
-	// 敵キャラと自弾の当たり判定1
-	for (PlayerBullet* PlayerBullet_ : playerBullets) {
+	//// 敵キャラと自弾の当たり判定1
+	//for (PlayerBullet* PlayerBullet_ : playerBullets) {
 
-		for (EnemyBullet* EnemyBullet_ : enemyBullets) {
+	//	for (EnemyBullet* EnemyBullet_ : enemyBullets) {
 
-			// 自弾の座標
-			posA = PlayerBullet_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA = PlayerBullet_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB = EnemyBullet_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB = EnemyBullet_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB = powf(posB.x - posA.x, 2.0) + powf(posB.y - posA.y, 2.0) + powf(posB.z - posA.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB <= powf(PlayerBullet_->PlayerBulletRad + EnemyBullet_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB <= powf(PlayerBullet_->PlayerBulletRad + EnemyBullet_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet_->OnCollision();
+	//		}
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定2
-	for (PlayerBullet* PlayerBullet2_ : playerBullets2) {
+	//// 敵キャラと自弾の当たり判定2
+	//for (PlayerBullet* PlayerBullet2_ : playerBullets2) {
 
-		for (EnemyBullet* EnemyBullet2_ : enemyBullets2) {
+	//	for (EnemyBullet* EnemyBullet2_ : enemyBullets2) {
 
-			// 自弾の座標
-			posA2 = PlayerBullet2_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA2 = PlayerBullet2_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB2 = EnemyBullet2_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB2 = EnemyBullet2_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB2 = powf(posB2.x - posA2.x, 2.0) + powf(posB2.y - posA2.y, 2.0) + powf(posB2.z - posA2.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB2 = powf(posB2.x - posA2.x, 2.0) + powf(posB2.y - posA2.y, 2.0) + powf(posB2.z - posA2.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB2 <= powf(PlayerBullet2_->PlayerBulletRad + EnemyBullet2_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB2 <= powf(PlayerBullet2_->PlayerBulletRad + EnemyBullet2_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet2_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet2_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet2_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet2_->OnCollision();
+	//		}
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定3
-	for (PlayerBullet* PlayerBullet3_ : playerBullets3) {
+	//// 敵キャラと自弾の当たり判定3
+	//for (PlayerBullet* PlayerBullet3_ : playerBullets3) {
 
-		for (EnemyBullet* EnemyBullet3_ : enemyBullets3) {
+	//	for (EnemyBullet* EnemyBullet3_ : enemyBullets3) {
 
-			// 自弾の座標
-			posA3 = PlayerBullet3_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA3 = PlayerBullet3_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB3 = EnemyBullet3_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB3 = EnemyBullet3_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB3 = powf(posB3.x - posA3.x, 2.0) + powf(posB3.y - posA3.y, 2.0) + powf(posB3.z - posA3.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB3 = powf(posB3.x - posA3.x, 2.0) + powf(posB3.y - posA3.y, 2.0) + powf(posB3.z - posA3.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB3 <= powf(PlayerBullet3_->PlayerBulletRad + EnemyBullet3_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB3 <= powf(PlayerBullet3_->PlayerBulletRad + EnemyBullet3_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet3_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet3_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet3_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet3_->OnCollision();
+	//		}
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定4
-	for (PlayerBullet* PlayerBullet4_ : playerBullets4) {
+	//// 敵キャラと自弾の当たり判定4
+	//for (PlayerBullet* PlayerBullet4_ : playerBullets4) {
 
-		for (EnemyBullet* EnemyBullet4_ : enemyBullets4) {
+	//	for (EnemyBullet* EnemyBullet4_ : enemyBullets4) {
 
-			// 自弾の座標
-			posA4 = PlayerBullet4_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA4 = PlayerBullet4_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB4 = EnemyBullet4_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB4 = EnemyBullet4_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB4 = powf(posB4.x - posA4.x, 2.0) + powf(posB4.y - posA4.y, 2.0) + powf(posB4.z - posA4.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB4 = powf(posB4.x - posA4.x, 2.0) + powf(posB4.y - posA4.y, 2.0) + powf(posB4.z - posA4.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB4 <= powf(PlayerBullet4_->PlayerBulletRad + EnemyBullet4_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB4 <= powf(PlayerBullet4_->PlayerBulletRad + EnemyBullet4_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet4_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet4_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet4_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet4_->OnCollision();
+	//		}
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定5
-	for (PlayerBullet* PlayerBullet5_ : playerBullets5) {
+	//// 敵キャラと自弾の当たり判定5
+	//for (PlayerBullet* PlayerBullet5_ : playerBullets5) {
 
-		for (EnemyBullet* EnemyBullet5_ : enemyBullets5) {
+	//	for (EnemyBullet* EnemyBullet5_ : enemyBullets5) {
 
-			// 自弾の座標
-			posA5 = PlayerBullet5_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA5 = PlayerBullet5_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB5 = EnemyBullet5_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB5 = EnemyBullet5_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB5 = powf(posB5.x - posA5.x, 2.0) + powf(posB5.y - posA5.y, 2.0) + powf(posB5.z - posA5.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB5 = powf(posB5.x - posA5.x, 2.0) + powf(posB5.y - posA5.y, 2.0) + powf(posB5.z - posA5.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB5 <= powf(PlayerBullet5_->PlayerBulletRad + EnemyBullet5_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB5 <= powf(PlayerBullet5_->PlayerBulletRad + EnemyBullet5_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet5_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet5_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet5_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet5_->OnCollision();
+	//		}
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定6
-	for (PlayerBullet* PlayerBullet6_ : playerBullets6) {
+	//// 敵キャラと自弾の当たり判定6
+	//for (PlayerBullet* PlayerBullet6_ : playerBullets6) {
 
-		for (EnemyBullet* EnemyBullet6_ : enemyBullets6) {
+	//	for (EnemyBullet* EnemyBullet6_ : enemyBullets6) {
 
-			// 自弾の座標
-			posA6 = PlayerBullet6_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA6 = PlayerBullet6_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB6 = EnemyBullet6_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB6 = EnemyBullet6_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB6 = powf(posB6.x - posA6.x, 2.0) + powf(posB6.y - posA6.y, 2.0) + powf(posB6.z - posA6.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB6 = powf(posB6.x - posA6.x, 2.0) + powf(posB6.y - posA6.y, 2.0) + powf(posB6.z - posA6.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB6 <= powf(PlayerBullet6_->PlayerBulletRad + EnemyBullet6_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB6 <= powf(PlayerBullet6_->PlayerBulletRad + EnemyBullet6_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet6_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet6_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet6_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet6_->OnCollision();
+	//		}
+	//	}
+	//}
 
-	// 敵キャラと自弾の当たり判定7
-	for (PlayerBullet* PlayerBullet7_ : playerBullets7) {
+	//// 敵キャラと自弾の当たり判定7
+	//for (PlayerBullet* PlayerBullet7_ : playerBullets7) {
 
-		for (EnemyBullet* EnemyBullet7_ : enemyBullets7) {
+	//	for (EnemyBullet* EnemyBullet7_ : enemyBullets7) {
 
-			// 自弾の座標
-			posA7 = PlayerBullet7_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA7 = PlayerBullet7_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB7 = EnemyBullet7_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB7 = EnemyBullet7_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB7 = powf(posB7.x - posA7.x, 2.0) + powf(posB7.y - posA7.y, 2.0) + powf(posB7.z - posA7.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB7 = powf(posB7.x - posA7.x, 2.0) + powf(posB7.y - posA7.y, 2.0) + powf(posB7.z - posA7.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB7 <= powf(PlayerBullet7_->PlayerBulletRad + EnemyBullet7_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB7 <= powf(PlayerBullet7_->PlayerBulletRad + EnemyBullet7_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet7_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet7_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet7_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet7_->OnCollision();
+	//		}
+	//	}
+	//}
 
 
-	// 敵キャラと自弾の当たり判定8
-	for (PlayerBullet* PlayerBullet8_ : playerBullets8) {
+	//// 敵キャラと自弾の当たり判定8
+	//for (PlayerBullet* PlayerBullet8_ : playerBullets8) {
 
-		for (EnemyBullet* EnemyBullet8_ : enemyBullets8) {
+	//	for (EnemyBullet* EnemyBullet8_ : enemyBullets8) {
 
-			// 自弾の座標
-			posA8 = PlayerBullet8_->GetWorldPosition();
+	//		// 自弾の座標
+	//		posA8 = PlayerBullet8_->GetWorldPosition();
 
-			// 敵弾の座標
-			posB8 = EnemyBullet8_->GetWorldPosition();
+	//		// 敵弾の座標
+	//		posB8 = EnemyBullet8_->GetWorldPosition();
 
-			// 座標AとBの距離を求める
-			float DistancePosAPosB8 = powf(posB8.x - posA8.x, 2.0) + powf(posB8.y - posA8.y, 2.0) + powf(posB8.z - posA8.z, 2.0);
+	//		// 座標AとBの距離を求める
+	//		float DistancePosAPosB8 = powf(posB8.x - posA8.x, 2.0) + powf(posB8.y - posA8.y, 2.0) + powf(posB8.z - posA8.z, 2.0);
 
-			// 弾と弾の交差判定
-			if (DistancePosAPosB8 <= powf(PlayerBullet8_->PlayerBulletRad + EnemyBullet8_->EnemyBulletRad, 2.0)) {
+	//		// 弾と弾の交差判定
+	//		if (DistancePosAPosB8 <= powf(PlayerBullet8_->PlayerBulletRad + EnemyBullet8_->EnemyBulletRad, 2.0)) {
 
-				// 敵キャラの衝突時のコールバックを呼び出す
-				EnemyBullet8_->OnCollision();
+	//			// 敵キャラの衝突時のコールバックを呼び出す
+	//			EnemyBullet8_->OnCollision();
 
-				// 自弾の衝突時のコールバックを呼び出す
-				PlayerBullet8_->OnCollision();
-			}
-		}
-	}
+	//			// 自弾の衝突時のコールバックを呼び出す
+	//			PlayerBullet8_->OnCollision();
+	//		}
+	//	}
+	//}
 
 
 #pragma endregion
