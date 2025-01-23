@@ -58,7 +58,8 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0;
 
 	//3Dモデルデータ
-	Model* model_ = nullptr;
+	Model* playerModel_ = nullptr;
+	Model* enemyModel_ = nullptr;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;

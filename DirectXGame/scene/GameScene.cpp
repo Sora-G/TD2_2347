@@ -9,7 +9,8 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
 	//デストラクタ
-	delete model_;
+	delete playerModel_;
+	delete enemyModel_;
 	delete modelSkydome_;
 	delete player_;
 	delete enemy_;
@@ -25,14 +26,15 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("uvChecker.png");
+	textureHandle_ = TextureManager::Load("ufoTexture.png");
 
 	//wavファイルを読み込んで追加
 	bgmHandle_ = audio_->LoadWave("sound/n003.wav");
 	playBGM_ = audio_->PlayWave(bgmHandle_, true);
 
 	//3Dモデルの読み込み
-	model_ = Model::Create();
+	playerModel_ = Model::CreateFromOBJ("ufo",true);
+	enemyModel_ = Model::Create();
 
 	//3Dモデルの生成
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
@@ -45,12 +47,12 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	//自キャラの初期化
 	Vector3 playerPosition{0.0f, 0.0f, 40.0f};
-	player_->Initialize(model_, textureHandle_, playerPosition);
+	player_->Initialize(playerModel_, textureHandle_, playerPosition);
 
 	//敵キャラの生成
 	enemy_ = new Enemy();
 	//敵キャラの初期化
-	enemy_->Initialize(model_, Vector3(5.0f, 0.0f, 50.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f));
+	enemy_->Initialize(enemyModel_, Vector3(5.0f, 0.0f, 50.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f));
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
