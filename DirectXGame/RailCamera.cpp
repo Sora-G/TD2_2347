@@ -89,7 +89,7 @@ void RailCamera::Update() {
 
 	// カメラの移動速度
 	Vector3 moveSpd = {};
-	const float kMoveSpd = 0.2f;
+	const float kMoveSpd = 0.5f;
 
 	//座標の位置を加算
 	if (input_->PushKey(DIK_T)){

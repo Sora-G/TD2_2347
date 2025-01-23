@@ -106,13 +106,19 @@ void Player::Draw(ViewProjection& viewProjection) {
 
 void Player::Rotate() {
 	//回転速さ[ラジアン/フレーム]
-	const float kRotSpeed = 0.02f;
+	const float kRotSpeed = 0.04f;
 
 	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_Q)) {
 		worldTransform_.rotation_.y -= kRotSpeed;
 	} else if (input_->PushKey(DIK_E)) {
 		worldTransform_.rotation_.y += kRotSpeed;
+	}
+
+	//角度を正面に戻す
+	if (input_->PushKey(DIK_Z))
+	{
+		worldTransform_.rotation_.y = 0.0f;
 	}
 }
 
