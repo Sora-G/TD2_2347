@@ -55,8 +55,8 @@ void Player::Update() {
 	worldTransform_.translation_ += move;
 
 	//移動制限
-	const float kMoveLimitX = 35.0f;
-	const float kMoveLimitY = 19.0f;
+	const float kMoveLimitX = 27.5f;
+	const float kMoveLimitY = 15.0f;
 
 	//範囲を超えない処理
 	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);

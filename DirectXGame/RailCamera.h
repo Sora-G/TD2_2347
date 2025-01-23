@@ -37,4 +37,7 @@ private:
 
 	//キーボード入力
 	Input* input_ = nullptr;
+
+	//初期座標を保存する
+	Vector3 saveStartPos;
 };

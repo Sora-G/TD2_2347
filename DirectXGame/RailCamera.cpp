@@ -71,6 +71,8 @@ Matrix4x4 Inverse(const Matrix4x4& matrix) {
 };
 
 void RailCamera::Initialize(Vector3 worldAxis, Vector3 radian) {
+	//初期座標の保存
+	saveStartPos = worldAxis;
 	//ワールドトランスフォームの初期設定
 	worldTransform_.translation_ = worldAxis;
 	worldTransform_.rotation_ = radian;
@@ -106,8 +108,14 @@ void RailCamera::Update() {
 	
 	moveSpd.z = static_cast<float>(input_->GetWheel()) / 5.0f;
 
+	moveSpd.z += kMoveSpd;
+
 	worldTransform_.translation_ += moveSpd;
 
+	if (worldTransform_.translation_.z >= 100.0f)
+	{
+		worldTransform_.translation_.z = saveStartPos.z;
+	}
 
 	//カメラの回転速度
 	Vector3 rotateSpd = {};
