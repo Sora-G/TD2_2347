@@ -58,71 +58,35 @@ void GameScene::Initialize() {
 	// 敵の初期化&生成
 
 	//敵のモデルデータ
-	Model* modelEnemy_ = nullptr;
-	Model* modelEnemy2_ = nullptr;
-	Model* modelEnemy3_ = nullptr;
-	Model* modelEnemy4_ = nullptr;
-	Model* modelEnemy5_ = nullptr;
-	Model* modelEnemy6_ = nullptr;
-	Model* modelEnemy7_ = nullptr;
-	Model* modelEnemy8_ = nullptr;
+	Model* modelEnemy_[8];
 
 	// テクスチャ読み込み
-	modelEnemy_ = Model::CreateFromOBJ("Venus", true);
-	modelEnemy2_ = Model::CreateFromOBJ("Sun", true);
-	modelEnemy3_ = Model::CreateFromOBJ("Mars", true);
-	modelEnemy4_ = Model::CreateFromOBJ("Moon", true);
-	modelEnemy5_ = Model::CreateFromOBJ("Jupiter", true);
-	modelEnemy6_ = Model::CreateFromOBJ("Earth", true);
-	modelEnemy7_ = Model::CreateFromOBJ("Spiral", true);
-	modelEnemy8_ = Model::CreateFromOBJ("SoftCream", true);
+	modelEnemy_[0] = Model::CreateFromOBJ("Venus", true);
+	modelEnemy_[1] = Model::CreateFromOBJ("Sun", true);
+	modelEnemy_[2] = Model::CreateFromOBJ("Mars", true);
+	modelEnemy_[3] = Model::CreateFromOBJ("Moon", true);
+	modelEnemy_[4] = Model::CreateFromOBJ("Jupiter", true);
+	modelEnemy_[5] = Model::CreateFromOBJ("Earth", true);
+	modelEnemy_[6] = Model::CreateFromOBJ("Spiral", true);
+	modelEnemy_[7] = Model::CreateFromOBJ("SoftCream", true);
 
-	/*enemy_->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
-
-	enemy2_->Initialize(modelEnemy2_, Vector3{ 15.0f, 2.0f, 10.0f }, Vector3{ 0.0f, 0.0f, 0.1f });
-
-	enemy3_->Initialize(modelEnemy3_, Vector3{ 20.0f, 4.0f, -10.0f }, Vector3{ 0.0f, 0.0f, 0.0f });
-
-	enemy4_->Initialize(modelEnemy4_, Vector3{ 15.0f, 6.0f, 10.0f }, Vector3{ 0.0f, 1.0f, 0.1f });
-
-	enemy5_->Initialize(modelEnemy5_, Vector3{ 5.0f, -2.0f, -10.0f }, Vector3{ 1.0f, 0.0f, -0.1f });
-
-	enemy6_->Initialize(modelEnemy6_, Vector3{ -10.0f, -4.0f, 10.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
-
-	enemy7_->Initialize(modelEnemy7_, Vector3{ -15.0f, -8.0f, -10.0f }, Vector3{ 1.0f, 0.0f, 0.1f });
-
-	enemy8_->Initialize(modelEnemy8_, Vector3{ -20.0f, 13.0f, -13.0f }, Vector3{ 1.0f, 0.0f, 0.1f });*/
+	for (int i = 0; i <= 7; i++)
+	{
 
 
-	for (Enemy* e : enemies_) {
+		Enemy* enemy = new Enemy();
+		enemy->Initialize(modelEnemy_[i], Vector3{ 10.0f + i, 0.0f, 0.0f + i }, Vector3{ 0.0f, 0.0f, -0.1f + i });
+		enemies_.push_back(enemy);
 
-		e->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
 
-		enemies_.push_back(e);
 
 	}
-
-
-	// 敵キャラに自キャラのアドレスを渡す
-	/*enemy_->SetPlayer(player_);
-
-	enemy2_->SetPlayer(player_);
-
-	enemy3_->SetPlayer(player_);
-
-	enemy4_->SetPlayer(player_);
-
-	enemy5_->SetPlayer(player_);
-
-	enemy6_->SetPlayer(player_);
-
-	enemy7_->SetPlayer(player_);
-
-	enemy8_->SetPlayer(player_);*/
 
 	for (Enemy* e : enemies_) {
 		e->SetPlayer(player_);
 	}
+
+
 
 	// 天球の生成
 	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
@@ -148,25 +112,11 @@ void GameScene::Update() {
 
 	// 敵の更新
 
-	/*enemy_->Update();
-
-	enemy2_->Update();
-
-	enemy3_->Update();
-
-	enemy4_->Update();
-
-	enemy5_->Update();
-
-	enemy6_->Update();
-
-	enemy7_->Update();
-
-	enemy8_->Update();*/
-
 	for (Enemy* e : enemies_) {
 		e->Update();
 	}
+
+
 
 	// 当たり判定
 	CheckAllCollisions();
@@ -237,26 +187,11 @@ void GameScene::Draw() {
 	// 自キャラの描画
 	player_->Draw(viewProjection_);
 
-	// 敵の描画
-	/*enemy_->Draw(viewProjection_);
-
-	enemy2_->Draw(viewProjection_);
-
-	enemy3_->Draw(viewProjection_);
-
-	enemy4_->Draw(viewProjection_);
-
-	enemy5_->Draw(viewProjection_);
-
-	enemy6_->Draw(viewProjection_);
-
-	enemy7_->Draw(viewProjection_);
-
-	enemy8_->Draw(viewProjection_);*/
-
 	for (Enemy* e : enemies_) {
 		e->Draw(viewProjection_);
 	}
+
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
