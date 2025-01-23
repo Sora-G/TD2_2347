@@ -93,9 +93,12 @@ void GameScene::Initialize() {
 
 	enemy8_->Initialize(modelEnemy8_, Vector3{ -20.0f, 13.0f, -13.0f }, Vector3{ 1.0f, 0.0f, 0.1f });*/
 
+
 	for (Enemy* e : enemies_) {
 
 		e->Initialize(modelEnemy_, Vector3{ 10.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, -0.1f });
+
+		enemies_.push_back(e);
 
 	}
 
