@@ -87,7 +87,7 @@ private: // メンバ変数
 	// 天球モデルデータ
 	Model* modelSkydome_ = nullptr;
 
-	//当たり判定
+	//当たり判定の
 
 
 
