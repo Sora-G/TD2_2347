@@ -73,12 +73,9 @@ void GameScene::Initialize() {
 	for (int i = 0; i <= 7; i++)
 	{
 
-
 		Enemy* enemy = new Enemy();
 		enemy->Initialize(modelEnemy_[i], Vector3{ 10.0f + i, 0.0f, 0.0f + i }, Vector3{ 0.0f, 0.0f, -0.1f + i });
 		enemies_.push_back(enemy);
-
-
 
 	}
 
