@@ -67,7 +67,15 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 
 	//敵
+	Enemy* enemy_ = nullptr;
+	//敵
 	std::list<Enemy*> enemies_ = {};
+	// 弾
+	std::list<EnemyBullet*> Enemybullets_;
+
+
+	// 弾
+	std::list<PlayerBullet*> Playerbullets_ = {};
 
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;
@@ -78,6 +86,10 @@ private: // メンバ変数
 
 	// 天球モデルデータ
 	Model* modelSkydome_ = nullptr;
+
+	//当たり判定
+
+
 
 	/// </summary>
 };
