@@ -15,6 +15,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) 
 	assert(model);
 	//引数で受け取ったデータをメンバ変数に記録
 	model_ = model;
+	bulletModel_ = Model::CreateSphere();
 	textureHandle_ = textureHandle;
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
@@ -134,7 +135,7 @@ void Player::Attack() {
 
 		//弾を生成し　初期化
 		PlayerBullet* newBulelt = new PlayerBullet();
-		newBulelt->Initialize(model_, GetWorldPosition(), velocity);
+		newBulelt->Initialize(bulletModel_, GetWorldPosition(), velocity);
 
 		//弾を登録する
 		bullets_.push_back(newBulelt);

@@ -25,6 +25,7 @@ void Enemy::Initialize(Model* model, const Vector3& position, Vector3 approachVe
 	//NULLポインタチェック
 	assert(model);
 	model_ = model;
+	bulletModel_ = Model::CreateSphere();
 	//テクスチャハンドルの読み込み
 	textureHandle_ = TextureManager::Load("uvChecker.png");
 	//ワールド変換の初期化
@@ -36,8 +37,10 @@ void Enemy::Initialize(Model* model, const Vector3& position, Vector3 approachVe
 	leaveVelocity_ = leaveVelocity;
 
 	//発射クールタイムを初期化
-	shotCoolTimeMax_ = 120;
+	shotCoolTimeMax_ = 30;
 	shotCoolTime_ = shotCoolTimeMax_;
+
+	hp_ = kEnemyMaxHp;
 }
 
 void Enemy::Update() { 
@@ -101,6 +104,7 @@ void Enemy::Update() {
 	ImGui::DragFloat3("playerWorldPosition", &playerWorldPos.x, 0);
 	ImGui::DragFloat3("enemyWorldPosition", &enemyWorldPos.x, 0);
 	ImGui::DragFloat3("enemy to player", &e2pVector.x, 0);
+	ImGui::DragInt("hp", &hp_, 0);
 	ImGui::End();
 }
 
@@ -139,7 +143,7 @@ void Enemy::Fire() {
 
 	// 弾を生成し　初期化
 	EnemyBullet* newBulelt = new EnemyBullet();
-	newBulelt->Initialize(model_, worldTransform_.translation_, velocity);
+	newBulelt->Initialize(bulletModel_, worldTransform_.translation_, velocity);
 
 	// 弾を登録する
 	bullets_.push_back(newBulelt);
@@ -156,4 +160,6 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 }
 
-void Enemy::OnCollision() {}
+void Enemy::OnCollision() {
+	hp_--;
+}

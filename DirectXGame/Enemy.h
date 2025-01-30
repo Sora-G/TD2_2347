@@ -59,12 +59,15 @@ public:
 	// 半径
 	const float rad = 1.0f;
 
+	int GetHP() { return hp_; }
+
 private:
 
 	//ワールド変換
 	WorldTransform worldTransform_;
 	//モデル
 	Model* model_;
+	Model* bulletModel_;
 	//テクスチャハンドル
 	uint32_t textureHandle_;
 	//接近速度
@@ -85,4 +88,7 @@ private:
 	Vector3 enemyWorldPos;
 	Vector3 e2pVector;
 	Vector3 e2pNormal;
+
+	const int kEnemyMaxHp = 10;
+	int hp_;
 };
