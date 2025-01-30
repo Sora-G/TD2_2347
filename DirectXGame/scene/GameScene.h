@@ -12,7 +12,7 @@
 #include"Enemy.h"
 #include"SkyDome.h"
 #include <list>
-
+#include "RailCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -83,9 +83,11 @@ private: // メンバ変数
 	std::list<PlayerBullet*> Playerbullets_ = {};
 
 	// デバッグカメラ
-	bool isDebugCameraActive_ = false;
+	bool isDebugCameraActive_ = true;
 	DebugCamera* debugCamera_ = nullptr;
 
+	// レールカメラ
+	RailCamera* railCamera_ = nullptr;
 
 	// 天球
 	Skydome* skyDome_ = nullptr;

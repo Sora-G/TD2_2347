@@ -50,6 +50,8 @@ public:
 
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
+
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;

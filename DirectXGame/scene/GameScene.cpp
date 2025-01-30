@@ -34,6 +34,7 @@ GameScene::~GameScene() {
 	// 天球
 	delete skyDome_;
 
+	delete railCamera_;
 }
 
 void GameScene::Initialize() {
@@ -51,11 +52,20 @@ void GameScene::Initialize() {
 	// ビュープロジェクション
 	viewProjection_.Initialize();
 
+	// レールカメラの生成
+	railCamera_ = new RailCamera();
+	// レールカメラの初期化
+	railCamera_->Initialize(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f));
+
 	// 自キャラの生成
 	player_ = new Player();
 
 	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
+
+	// 自キャラとレールカメラの親子関係を結ぶ
+	player_->SetParent(&railCamera_->GetWorldTransform());
+	//railCamera_->SetParent(&player_->GetWorldPosition());
 
 	player_->SetGameScene(this);
 
@@ -71,7 +81,7 @@ void GameScene::Initialize() {
 	// 敵の初期化&生成
 
 	//敵のモデルデータ
-	Model* modelEnemy_[8];
+	Model* modelEnemy_[6];
 
 	// テクスチャ読み込み
 	modelEnemy_[0] = Model::CreateFromOBJ("Venus", true);
@@ -80,10 +90,10 @@ void GameScene::Initialize() {
 	modelEnemy_[3] = Model::CreateFromOBJ("Moon", true);
 	modelEnemy_[4] = Model::CreateFromOBJ("Jupiter", true);
 	modelEnemy_[5] = Model::CreateFromOBJ("Earth", true);
-	modelEnemy_[6] = Model::CreateFromOBJ("Spiral", true);
-	modelEnemy_[7] = Model::CreateFromOBJ("SoftCream", true);
+	/*modelEnemy_[6] = Model::CreateFromOBJ("Spiral", true);
+	modelEnemy_[7] = Model::CreateFromOBJ("SoftCream", true);*/
 
-	for (int i = 0; i <= 7; i++)
+	for (int i = 0; i <= 5; i++)
 	{
 
 		Enemy* enemy = new Enemy();
@@ -146,28 +156,35 @@ void GameScene::Update() {
 	// 天球の更新
 	skyDome_->Update();
 
+	// レールカメラ
+	railCamera_->Update();
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	viewProjection_.TransferMatrix();
+
 #ifdef _DEBUG
 
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
 	}
-
-	if (input_->TriggerKey(DIK_1)) {
+	if (input_->TriggerKey(DIK_X)) {
 		isDebugCameraActive_ = false;
 	}
-
+	if (input_->TriggerKey(DIK_C)) {
+		viewProjection_.Initialize();
+	}
 #endif // _DEBUG
-
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
 		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	}
 	else {
 		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		// viewProjection_.UpdateMatrix();
 	}
 
 	Playerbullets_.remove_if([](PlayerBullet* pB) {
