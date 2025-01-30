@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <TextureManager.h>
 #include <cassert>
+#include<GameScene.h>
 
 float Dot(const Vector3& v1, const Vector3& v2) { return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z; }
 float Length(const Vector3& v) { return std::sqrt(Dot(v, v)); }
@@ -164,7 +165,7 @@ void Enemy::Fire() {
 		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 		// 弾を登録する
-		bullets_.push_back(newBullet);
+		gameScene_->AddEnemyBullet(newBullet);
 
 	}
 

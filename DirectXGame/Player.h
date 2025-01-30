@@ -8,6 +8,10 @@
 #include"PlayerBullet.h"
 #include<list>
 
+// GameSceneの前方宣言
+class GameScene;
+
+
 class Player {
 
 public:
@@ -50,6 +54,8 @@ public:
 	//HP
 	const float PlayerHp = 20;
 
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -74,6 +80,7 @@ private:
 	// 弾
 	std::list<PlayerBullet*> bullets_;
 
-
+	// ゲームシーン
+	GameScene* gameScene_ = nullptr;
 
 };

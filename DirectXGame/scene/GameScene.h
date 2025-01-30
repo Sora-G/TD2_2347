@@ -47,6 +47,10 @@ public: // メンバ関数
 	//衝突判定と応答
 	void CheckAllCollisions();
 
+	void AddPlayerBullet(PlayerBullet* playerBullet);
+
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -87,9 +91,9 @@ private: // メンバ変数
 	// 天球モデルデータ
 	Model* modelSkydome_ = nullptr;
 
-	//当たり判定の
-
-
+	
+	// 判定対象AとBの座標
+	Vector3 posA, posB;
 
 	/// </summary>
 };

@@ -2,6 +2,7 @@
 #include "MathUtilityForText.h"
 #include "WorldTransform.h"
 #include <cassert>
+#include<GameScene.h>
 
 Player::~Player() {
 
@@ -148,7 +149,7 @@ void Player::Attack() {
 		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 		// 弾を登録する
-		bullets_.push_back(newBullet);
+		gameScene_->AddPlayerBullet(newBullet);
 	}
 }
 

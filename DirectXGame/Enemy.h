@@ -12,6 +12,9 @@
 // 自機クラスの前方宣言
 class Player;
 
+//GameSceneの前方宣言
+class GameScene;
+
 class Enemy {
 
 public: // メンバ関数
@@ -68,6 +71,7 @@ public: // メンバ関数
 	// 半径
 	const float EnemyRad = 1;
 
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
 private:
 	// ワールド変換データ
@@ -109,4 +113,6 @@ private:
 	// 自キャラ
 	Player* player_ = nullptr;
 
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 };
