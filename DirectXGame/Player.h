@@ -1,21 +1,18 @@
 #pragma once
 
-
+#include "Input.h"
 #include "Model.h"
+#include "PlayerBullet.h"
 #include "WorldTransform.h"
-#include"Input.h"
-#include"imgui.h"
-#include"PlayerBullet.h"
-#include<list>
+#include "imgui.h"
+#include <list>
 
 // GameSceneの前方宣言
 class GameScene;
 
-
 class Player {
 
 public:
-
 	~Player();
 
 	/// <summary>
@@ -42,17 +39,14 @@ public:
 
 	Vector3 GetWorldPosition();
 
-	//衝突を検知したら呼び出されるコールバック関数
+	// 衝突を検知したら呼び出されるコールバック関数
 	void OnCollision();
-
-	// 弾リストを取得
-	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
 	// 半径
 	const float PlayerRad = 1;
 
-	//HP
-	const float PlayerHp = 20;
+	// 親となるワールドトランスフォーム
+	void SetParent(const WorldTransform* parent);
 
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
@@ -71,16 +65,9 @@ private:
 
 	ViewProjection* viewProjection_ = nullptr;
 
-	//キーボード入力
+	// キーボード入力
 	Input* input_ = nullptr;
-
-	//弾
-	PlayerBullet* bullet_ = nullptr;
-
-	// 弾
-	std::list<PlayerBullet*> bullets_;
 
 	// ゲームシーン
 	GameScene* gameScene_ = nullptr;
-
 };

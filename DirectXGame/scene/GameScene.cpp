@@ -33,6 +33,7 @@ GameScene::~GameScene() {
 
 	// 天球
 	delete skyDome_;
+
 }
 
 void GameScene::Initialize() {

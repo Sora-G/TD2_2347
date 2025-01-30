@@ -12,6 +12,8 @@
 #include"Enemy.h"
 #include"SkyDome.h"
 #include <list>
+#include "RailCamera.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -84,6 +86,8 @@ private: // メンバ変数
 	// デバッグカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
+
+	RailCamera* railCamera_ = nullptr;
 
 	// 天球
 	Skydome* skyDome_ = nullptr;

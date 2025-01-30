@@ -6,23 +6,19 @@
 
 Player::~Player() {
 
-	// bullet_の解放
-	for (PlayerBullet* bullet : bullets_) {
 
-		delete bullet;
-	}
 }
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	// NULLポインタチェック
-	//assert(model);
+	assert(model);
 
 	// 引数
 	model_ = model;
 	textureHandle_ = textureHandle;
 
-	//viewProjection_ = viewProjection;
+	// viewProjection_ = viewProjection;
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
@@ -33,18 +29,6 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 void Player::Update() {
 
-	// デスフラグの立った弾を削除
-	bullets_.remove_if([](PlayerBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-
-		return false;
-		});
-
-	// アフィン変換行列の作成
-	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 	// キャラクターのベクトル移動
 	Vector3 move = { 0, 0, 0 };
@@ -74,17 +58,20 @@ void Player::Update() {
 	const float kMoveLimitX = 35;
 	const float kMoveLimitY = 20;
 
+	// 座標移動(ベクトルの加算)
+	worldTransform_.translation_ += move;
+
 	// 範囲を超えない処理
 	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
+
+	worldTransform_.UpdateMatrix();
+
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
-
-	// 座標移動(ベクトルの加算)
-	worldTransform_.translation_ += move;
 
 	// キャラクターの座標を画面表示する処理
 	/*ImGui::Begin("");
@@ -97,24 +84,12 @@ void Player::Update() {
 
 	// キャラクターの攻撃処理
 	Attack();
-
-	// 弾更新
-	for (PlayerBullet* bullet : bullets_) {
-
-		bullet->Update();
-	}
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
 
 	// 3Dモデルの描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-
-	// 弾描画
-	for (PlayerBullet* bullet : bullets_) {
-
-		bullet->Draw(viewProjection);
-	}
 }
 
 void Player::Rotate() {
@@ -146,7 +121,7 @@ void Player::Attack() {
 
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 
 		// 弾を登録する
 		gameScene_->AddPlayerBullet(newBullet);
@@ -155,10 +130,10 @@ void Player::Attack() {
 
 Vector3 Player::GetWorldPosition() {
 
-	//ワールド座標を入れる変数
+	// ワールド座標を入れる変数
 	Vector3 worldPos;
 
-	//ワールド行列の平行行列成分を取得(ワールド座標)
+	// ワールド行列の平行行列成分を取得(ワールド座標)
 	worldPos.x = worldTransform_.translation_.x;
 	worldPos.y = worldTransform_.translation_.y;
 	worldPos.z = worldTransform_.translation_.z;
@@ -167,3 +142,9 @@ Vector3 Player::GetWorldPosition() {
 }
 
 void Player::OnCollision() {}
+
+void Player::SetParent(const WorldTransform* parent) {
+
+	// 親子関係を結ぶ
+	worldTransform_.parent_ = parent;
+}
