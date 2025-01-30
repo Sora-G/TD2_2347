@@ -37,7 +37,7 @@ void Enemy::Initialize(Model* model, const Vector3& position, Vector3 approachVe
 	leaveVelocity_ = leaveVelocity;
 
 	//発射クールタイムを初期化
-	shotCoolTimeMax_ = 30;
+	shotCoolTimeMax_ = 15;
 	shotCoolTime_ = shotCoolTimeMax_;
 
 	//hp_ = kEnemyMaxHp;
@@ -104,7 +104,7 @@ void Enemy::Update() {
 	ImGui::DragFloat3("playerWorldPosition", &playerWorldPos.x, 0);
 	ImGui::DragFloat3("enemyWorldPosition", &enemyWorldPos.x, 0);
 	ImGui::DragFloat3("enemy to player", &e2pVector.x, 0);
-	ImGui::DragInt("hp", &hp_, 0);
+	//ImGui::DragInt("hp", &hp_, 0);
 	ImGui::End();
 }
 
@@ -161,5 +161,5 @@ Vector3 Enemy::GetWorldPosition() {
 }
 
 void Enemy::OnCollision() {
-	hp_--;
+	//hp_--;
 }

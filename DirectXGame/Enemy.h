@@ -59,7 +59,7 @@ public:
 	// 半径
 	const float rad = 1.0f;
 
-	int GetHP() { return hp_; }
+	//int GetHP() { return hp_; }
 
 private:
 
