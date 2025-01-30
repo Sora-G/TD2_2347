@@ -25,7 +25,7 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rot, const Vecto
 Vector3& operator+=(Vector3& lhs, const Vector3& rhv);
 
 // 行列の掛け算
-Matrix4x4 MatrixMultiply(Matrix4x4& m1, const Matrix4x4& m2);
+Matrix4x4 MatrixMultiply(Matrix4x4& m1, Matrix4x4& m2);
 
 // 2項演算子オーバーロード
 // Vector3の足算
@@ -47,5 +47,3 @@ Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 
 //ベクトル関数
 Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
-
-Matrix4x4 Inverse(const Matrix4x4& matrix);
