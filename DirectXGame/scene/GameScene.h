@@ -88,6 +88,10 @@ private: // メンバ変数
 	uint32_t bgmHandle_;
 	uint32_t playBGM_;
 
+	//時間制限（タイマー)
+	uint32_t StegeTimer = 30;
+
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
