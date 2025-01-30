@@ -7,7 +7,7 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { 
+GameScene::~GameScene() {
 	//デストラクタ
 	delete playerModel_;
 	delete enemyModel_;
@@ -33,11 +33,11 @@ void GameScene::Initialize() {
 	playBGM_ = audio_->PlayWave(bgmHandle_, true);
 
 	//3Dモデルの読み込み
-	playerModel_ = Model::CreateFromOBJ("ufo",true);
-	enemyModel_ = Model::Create();
+	playerModel_ = Model::CreateFromOBJ("ufo", true);
+	enemyModel_ = Model::CreateFromOBJ("Earth", true);
 
 	//3Dモデルの生成
-	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
 
 	//ビュープロジェクションの初期化
 	viewProjection_.farZ = 300.0f;
@@ -46,7 +46,7 @@ void GameScene::Initialize() {
 	//自キャラの生成
 	player_ = new Player();
 	//自キャラの初期化
-	Vector3 playerPosition{0.0f, 0.0f, 40.0f};
+	Vector3 playerPosition{ 0.0f, 0.0f, 40.0f };
 	player_->Initialize(playerModel_, textureHandle_, playerPosition);
 
 	//敵キャラの生成
@@ -95,12 +95,12 @@ void GameScene::Update() {
 	//デバッグカメラの更新
 	debugCamera_->Update();
 
-	#ifdef DEBUG
+#ifdef DEBUG
 
 	if (input_->TriggerKey(DIK_Z)) {
 		isDebugCameraActive_ = true;
 	}
-	if (input_->TriggerKey(DIK_X)){
+	if (input_->TriggerKey(DIK_X)) {
 		isDebugCameraActive_ = false;
 	}
 	if (input_->TriggerKey(DIK_C)) {
@@ -110,7 +110,7 @@ void GameScene::Update() {
 #endif // DEBUG
 
 	//カメラの処理(レール)
-	if (isDebugCameraActive_ == true){
+	if (isDebugCameraActive_ == true) {
 		railCamera_->Update();
 		viewProjection_.matView = railCamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
@@ -182,14 +182,14 @@ void GameScene::Draw() {
 void GameScene::CheckAllCollisions() {
 	//判定対象AとBの座標
 	Vector3 posA, posB;
-	
+
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 
 	//敵弾リストの取得
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
-	#pragma region 自キャラと敵弾の当たり判定
+#pragma region 自キャラと敵弾の当たり判定
 
 	//自キャラの座標
 	posA = player_->GetWorldPosition();
@@ -210,9 +210,9 @@ void GameScene::CheckAllCollisions() {
 		}
 	}
 
-	#pragma endregion
+#pragma endregion
 
-	#pragma region 自弾と敵キャラの当たり判定
+#pragma region 自弾と敵キャラの当たり判定
 
 	//敵キャラの座標
 	posA = enemy_->GetWorldPosition();
@@ -233,9 +233,9 @@ void GameScene::CheckAllCollisions() {
 		}
 	}
 
-	#pragma endregion
+#pragma endregion
 
-	#pragma region 自弾と敵弾の当たり判定
+#pragma region 自弾と敵弾の当たり判定
 
 	for (PlayerBullet* playerBullet : playerBullets) {
 		for (EnemyBullet* enemyBullet : enemyBullets) {
@@ -257,5 +257,5 @@ void GameScene::CheckAllCollisions() {
 		}
 	}
 
-	#pragma endregion
+#pragma endregion
 }
