@@ -89,6 +89,6 @@ private:
 	Vector3 e2pVector;
 	Vector3 e2pNormal;
 
-	const int kEnemyMaxHp = 10;
-	int hp_;
+	/*const int kEnemyMaxHp = 10;
+	int hp_;*/
 };

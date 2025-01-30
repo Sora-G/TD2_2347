@@ -27,7 +27,7 @@ void Enemy::Initialize(Model* model, const Vector3& position, Vector3 approachVe
 	model_ = model;
 	bulletModel_ = Model::CreateSphere();
 	//テクスチャハンドルの読み込み
-	textureHandle_ = TextureManager::Load("Earth.png");
+	textureHandle_ = TextureManager::Load("Earth/Earth.png");
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
 	//引数で受け取った初期座標を代入
@@ -40,7 +40,7 @@ void Enemy::Initialize(Model* model, const Vector3& position, Vector3 approachVe
 	shotCoolTimeMax_ = 30;
 	shotCoolTime_ = shotCoolTimeMax_;
 
-	hp_ = kEnemyMaxHp;
+	//hp_ = kEnemyMaxHp;
 }
 
 void Enemy::Update() { 
