@@ -23,7 +23,7 @@ void PlayerBullet::Update() {
 
 	//時間経過でデス
 	if (--deathTimer_ <= 0) {
-		isDead_ = true;
+		PlayerBulletIsDead_ = true;
 	}
 
 	//ワールドトランスフォームの更新

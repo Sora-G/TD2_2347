@@ -5,10 +5,10 @@
 #include <math.h>
 
 #include "TitleScene.h"
-#include"PlayScene.h"
-#include"OverScene.h"
-#include"ClearScene.h"
-#include"InfoScene.h"
+#include "PlayScene.h"
+#include "OverScene.h"
+#include "ClearScene.h"
+#include "InfoScene.h"
 
 #define DEBUG
 

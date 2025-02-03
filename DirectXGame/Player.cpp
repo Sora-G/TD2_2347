@@ -2,6 +2,9 @@
 #include "cassert"
 #include "MathUtilityForText.h"
 #include "imgui.h"
+#include "Model.h"
+#include "PlayerBullet.h"
+#include "Input.h"
 
 Player::~Player() {
 	//弾の開放

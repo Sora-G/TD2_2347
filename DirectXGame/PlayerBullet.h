@@ -27,7 +27,7 @@ public:
 	/// <param name="viewProjection">ビュープロジェクション</param>
 	void Draw(const ViewProjection& viewProjection);
 
-	bool IsDead() const { return isDead_; }
+	bool IsDead() const { return PlayerBulletIsDead_; }
 
 	/// <summary>
 	/// ワールド座標を取得

@@ -1,10 +1,17 @@
 #include "PlayScene.h"
-#include "BGM.h"
-#include "Input.h"
-#include"RailCamera.h"
-#include "AxisIndicator.h"
 #include "TextureManager.h"
-#include"Time.h"
+//#include "BGM.h"
+#include "Input.h"
+#include "RailCamera.h"
+#include "AxisIndicator.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "Model.h"
+#include "Skydome.h"
+#include "DebugCamera.h"
+
+
+//#include "Time.h"
 
 PlayScene::PlayScene()
 {
@@ -12,7 +19,7 @@ PlayScene::PlayScene()
 
 PlayScene::~PlayScene()
 {
-	delete bgm_;
+	//delete bgm_;
 	delete playerModel_;
 	delete player_;
 	delete enemyModel_;
@@ -27,8 +34,8 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	bgm_ = new BGM();
-	bgm_->Initialize("BGM/PlayBGM.mp3");
+	//bgm_ = new BGM();
+	//bgm_->Initialize("BGM/PlayBGM.mp3");
 	input_ = Input::GetInstance();
 
 	//ファイル名を指定してテクスチャを読み込む

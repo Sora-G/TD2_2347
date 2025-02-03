@@ -1,10 +1,15 @@
 #pragma once
 #include "EScene.h"
-#include"GameScene.h"
-#include"Player.h"
+#include "ViewProjection.h"
 
+class Skydome;
+class RailCamera;
+class Model;
+class Player;
 class BGM;
 class Input;
+class Enemy;
+class DebugCamera;
 class PlayScene
 {
 public:
@@ -26,7 +31,7 @@ public:
 
 private:
 	Input* input_;
-	BGM* bgm_;
+	//BGM* bgm_;
 	bool isEnd_;
 	EScene nextScene_;
 	//ビュープロジェクション
