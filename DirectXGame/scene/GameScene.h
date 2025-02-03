@@ -91,6 +91,7 @@ private: // メンバ変数
 	//時間制限（タイマー)
 	uint32_t StegeTimer = 30;
 
+	Model* title = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

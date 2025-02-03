@@ -72,6 +72,8 @@ void GameScene::Initialize() {
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
+	title = Model::CreateFromOBJ("title", true);
+
 	//軸方向表示の表示を有効
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が表示するビュープロジェクションを指定する（アドレス渡し）
