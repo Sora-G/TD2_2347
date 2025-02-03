@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
-	win->CreateGameWindow(L"TD2");
+	win->CreateGameWindow(L"ネビュラクラッシュ");
 
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
