@@ -124,6 +124,7 @@
     <ClCompile Include="RailCamera.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="worldTransformEX.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="RailCamera.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="Skydome.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>

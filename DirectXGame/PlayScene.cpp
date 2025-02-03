@@ -4,7 +4,7 @@
 #include"RailCamera.h"
 #include "AxisIndicator.h"
 #include "TextureManager.h"
-
+#include"Time.h"
 
 PlayScene::PlayScene()
 {
@@ -139,7 +139,7 @@ void PlayScene::Update()
 		viewProjection_.TransferMatrix();
 	}
 
-	if (敵の体力が０になったら)
+	if (Time::IsFinish)
 	{
 		nextScene_ = EScene::ClearScene;
 		isEnd_ = true;
@@ -147,7 +147,7 @@ void PlayScene::Update()
 	if (自機の体力が０なったら)
 	{
 		nextScene_ = EScene::OverScene;
-		
+
 		isEnd_ = true;
 	}
 }
