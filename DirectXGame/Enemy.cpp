@@ -96,16 +96,16 @@ void Enemy::Update() {
 	});
 
 	// キャラクターの座標を画面表示する処理
-	ImGui::Begin("Enemy");
+	//ImGui::Begin("Enemy");
 
-	ImGui::DragFloat3("transform", &worldTransform_.translation_.x, 0.1f);
-	ImGui::DragInt("shotCoolTime", &shotCoolTime_, 0);
-	ImGui::DragInt("shotMaxCoolTime", &shotCoolTimeMax_, 1);
-	ImGui::DragFloat3("playerWorldPosition", &playerWorldPos.x, 0);
-	ImGui::DragFloat3("enemyWorldPosition", &enemyWorldPos.x, 0);
-	ImGui::DragFloat3("enemy to player", &e2pVector.x, 0);
-	//ImGui::DragInt("hp", &hp_, 0);
-	ImGui::End();
+	//ImGui::DragFloat3("transform", &worldTransform_.translation_.x, 0.1f);
+	//ImGui::DragInt("shotCoolTime", &shotCoolTime_, 0);
+	//ImGui::DragInt("shotMaxCoolTime", &shotCoolTimeMax_, 1);
+	//ImGui::DragFloat3("playerWorldPosition", &playerWorldPos.x, 0);
+	//ImGui::DragFloat3("enemyWorldPosition", &enemyWorldPos.x, 0);
+	//ImGui::DragFloat3("enemy to player", &e2pVector.x, 0);
+	////ImGui::DragInt("hp", &hp_, 0);
+	//ImGui::End();
 }
 
 void Enemy::Draw(const ViewProjection& viewProjection) {

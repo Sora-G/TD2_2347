@@ -87,12 +87,12 @@ void Player::Update() {
 	});
 
 	//キャラクターの座標を画面表示する処理
-	ImGui::Begin("Player");
+	/*ImGui::Begin("Player");
 
 	ImGui::DragFloat3("translation", &worldTransform_.translation_.x, 0.1f);
 	ImGui::DragFloat3("rotate", &worldTransform_.rotation_.x, 0.02f);
 
-	ImGui::End();
+	ImGui::End();*/
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
