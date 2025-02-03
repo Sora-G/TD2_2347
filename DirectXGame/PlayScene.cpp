@@ -26,8 +26,6 @@ void PlayScene::BeginScene()
 
 void PlayScene::Update()
 {
-
-
 	if (敵の体力が０になったら)
 	{
 		nextScene_ = EScene::ClearScene;
@@ -36,7 +34,7 @@ void PlayScene::Update()
 	if (自機の体力が０なったら)
 	{
 		nextScene_ = EScene::OverScene;
-
+		
 		isEnd_ = true;
 	}
 }
