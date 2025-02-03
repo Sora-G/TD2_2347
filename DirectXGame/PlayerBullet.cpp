@@ -8,7 +8,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	assert(model);
 	model_ = model;
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("uvChecker.png");
+	textureHandle_ = TextureManager::Load("Bullet/Bullet.png");
 	//ワールド座標の初期化
 	worldTransform_.Initialize();
 	//引数で受け取った初期座標を代入

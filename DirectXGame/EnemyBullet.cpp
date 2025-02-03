@@ -8,7 +8,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	assert(model);
 	model_ = model;
 	// テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("uvChecker.png");
+	textureHandle_ = TextureManager::Load("Rock/Rock.png");
 	// ワールド座標の初期化
 	worldTransform_.Initialize();
 	// 引数で受け取った初期座標を代入
@@ -35,7 +35,7 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
-Vector3 EnemyBullet::GetWorldPosition() { 
+Vector3 EnemyBullet::GetWorldPosition() {
 	// ワールド座標を入れる変数
 	Vector3 worldPos;
 	// ワールド行列の平行移動成分を取得（ワールド座標）
