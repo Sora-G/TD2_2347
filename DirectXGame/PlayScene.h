@@ -60,5 +60,10 @@ private:
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+
+	//デスフラグ
+	bool isDead_ = false;
+
+
 };
 

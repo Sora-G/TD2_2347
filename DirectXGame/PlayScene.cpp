@@ -144,7 +144,7 @@ void PlayScene::Update()
 		nextScene_ = EScene::ClearScene;
 		isEnd_ = true;
 	}
-	if (自機の体力が０なったら)
+	if (isDead_ == true)
 	{
 		nextScene_ = EScene::OverScene;
 

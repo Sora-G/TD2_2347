@@ -74,4 +74,7 @@ private:
 	Input* input_ = nullptr;
 	//弾
 	std::list<PlayerBullet*> bullets_;
+
+	//デスフラグ
+	bool isDead_ = false;
 };

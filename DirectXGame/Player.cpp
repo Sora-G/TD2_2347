@@ -23,7 +23,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, Vector3 position) 
 	worldTransform_.translation_ = position;
 	//シングルトンインスタンスを取得する
 	input_ = Input::GetInstance();
-}	
+}
 
 void Player::Update() {
 	//アフィン変換
@@ -33,22 +33,24 @@ void Player::Update() {
 	worldTransform_.UpdateMatrix(true);
 
 	//キャラクターの移動ベクトル
-	Vector3 move = {0, 0, 0};
+	Vector3 move = { 0, 0, 0 };
 
 	//キャラクターの移動する速さ
 	const float kCharacterSpd = 0.2f;
 
 	//押した方向で移動ベクトルを変更（左右）
-	if (input_->PushKey(DIK_A)){
+	if (input_->PushKey(DIK_A)) {
 		move.x -= kCharacterSpd;
-	}else if (input_->PushKey(DIK_D)){
+	}
+	else if (input_->PushKey(DIK_D)) {
 		move.x += kCharacterSpd;
 	}
 
 	//押した方向で移動ベクトルを変更（上下）
 	if (input_->PushKey(DIK_W)) {
 		move.y += kCharacterSpd;
-	} else if (input_->PushKey(DIK_S)) {
+	}
+	else if (input_->PushKey(DIK_S)) {
 		move.y -= kCharacterSpd;
 	}
 
@@ -84,7 +86,7 @@ void Player::Update() {
 			return true;
 		}
 		return false;
-	});
+		});
 
 	//キャラクターの座標を画面表示する処理
 	ImGui::Begin("Player");
@@ -98,7 +100,7 @@ void Player::Update() {
 void Player::Draw(ViewProjection& viewProjection) {
 	//3Dモデルを描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-	
+
 	//弾の描画
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);
@@ -112,7 +114,8 @@ void Player::Rotate() {
 	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_Q)) {
 		worldTransform_.rotation_.y -= kRotSpeed;
-	} else if (input_->PushKey(DIK_E)) {
+	}
+	else if (input_->PushKey(DIK_E)) {
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
 
@@ -154,9 +157,12 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos;
 }
 
-void Player::OnCollision() {}
+void Player::OnCollision() {
+	//デスフラグを立てる
+	isDead_ = true;
+}
 
-void Player::SetParent(const WorldTransform* parent) { 
+void Player::SetParent(const WorldTransform* parent) {
 	//親子関係を結ぶ
-	worldTransform_.parent_ = parent; 
+	worldTransform_.parent_ = parent;
 }

@@ -48,5 +48,5 @@ Vector3 PlayerBullet::GetWorldPosition() {
 
 void PlayerBullet::OnCollision() {
 	//デスフラグを立てる
-	isDead_ = true;
+	PlayerBulletIsDead_ = true;
 }
