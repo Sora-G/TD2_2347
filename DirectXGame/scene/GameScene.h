@@ -12,6 +12,14 @@
 #include "Enemy.h"
 #include "Skydome.h"
 #include "RailCamera.h"
+#include "EScene.h"
+
+class TitleScene;
+class PlayScene;
+class InfoScene;
+class OverScene;
+class ClearScene;
+
 
 /// <summary>
 /// ゲームシーン
@@ -90,6 +98,13 @@ private: // メンバ変数
 
 	//時間制限（タイマー)
 	uint32_t StegeTimer = 30;
+
+	TitleScene* titleScene_ = nullptr;
+	EScene currentScene_;
+	PlayScene* playScene_ = nullptr;
+	InfoScene* infoScene_ = nullptr;
+	OverScene* overScene_ = nullptr;
+	ClearScene* clearScene_ = nullptr;
 
 
 	/// <summary>

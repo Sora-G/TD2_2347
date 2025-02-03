@@ -3,12 +3,12 @@
 #include "TextureManager.h"
 #include "MathUtilityForText.h"
 
-void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) { 
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	//NULLポインタチェック
 	assert(model);
 	model_ = model;
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("uvChecker.png");
+	textureHandle_ = TextureManager::Load("Bullet/Bullet.png");
 	//ワールド座標の初期化
 	worldTransform_.Initialize();
 	//引数で受け取った初期座標を代入
@@ -17,12 +17,12 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	velocity_ = velocity;
 }
 
-void PlayerBullet::Update() { 
+void PlayerBullet::Update() {
 	//座標を移動させる（１フレーム分の移動量を足しこむ）
 	worldTransform_.translation_ += velocity_;
 
 	//時間経過でデス
-	if (--deathTimer_ <= 0){
+	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
 
@@ -35,7 +35,7 @@ void PlayerBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
-Vector3 PlayerBullet::GetWorldPosition() { 
+Vector3 PlayerBullet::GetWorldPosition() {
 	// ワールド座標を入れる変数
 	Vector3 worldPos;
 	// ワールド行列の平行移動成分を取得（ワールド座標）
@@ -46,7 +46,7 @@ Vector3 PlayerBullet::GetWorldPosition() {
 	return worldPos;
 }
 
-void PlayerBullet::OnCollision() { 
+void PlayerBullet::OnCollision() {
 	//デスフラグを立てる
 	isDead_ = true;
 }

@@ -3,6 +3,13 @@
 #include <cassert>
 #include "AxisIndicator.h"
 #include <math.h>
+
+#include "TitleScene.h"
+#include"PlayScene.h"
+#include"OverScene.h"
+#include"ClearScene.h"
+#include"InfoScene.h"
+
 #define DEBUG
 
 GameScene::GameScene() {}
@@ -76,9 +83,74 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が表示するビュープロジェクションを指定する（アドレス渡し）
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	titleScene_ = new TitleScene();
+	titleScene_->Initialize();
+	currentScene_ = EScene::Initialize;
+	infoScene_ = new InfoScene();
+	infoScene_->Initialize();
+	playScene_ = new PlayScene();
+	playScene_->Initialize();
+	overScene_ = new OverScene();
+	overScene_->Initialize();
+	clearScene_ = new ClearScene();
+	clearScene_->Initialize();
+
+
 }
 
 void GameScene::Update() {
+
+
+	switch (currentScene_)
+	{
+	case EScene::Initialize:
+		titleScene_->BeginScene();
+		currentScene_ = EScene::TitleScene;
+		break;
+	case EScene::TitleScene:
+		titleScene_->Update();
+		if (titleScene_->IsEnd())
+		{
+			titleScene_->EndScene();
+			infoScene_->BeginScene();
+			currentScene_ = EScene::InfoScene;
+		}
+		break;
+	case EScene::InfoScene:
+		infoScene_->Update();
+		if (infoScene_->IsEnd()) {
+			infoScene_->EndScene();
+			currentScene_ = EScene::PlayScene;
+		}
+		break;
+	case EScene::PlayScene:
+		playScene_->Update();
+		if (playScene_->IsEnd()) {
+			playScene_->EndScene();
+
+			currentScene_ = playScene_->GetNextScene();
+		}
+
+		break;
+	case EScene::OverScene:
+		overScene_->Update();
+		if (overScene_->IsEnd()) {
+			overScene_->EndScene();
+
+		}
+		break;
+	case EScene::ClearScene:
+		clearScene_->Update();
+		if (clearScene_->IsEnd()) {
+			clearScene_->EndScene();
+			currentScene_ = EScene::TitleScene;
+		}
+		break;
+	default:
+		break;
+	}
+
 
 	//自キャラの更新処理
 	player_->Update();
