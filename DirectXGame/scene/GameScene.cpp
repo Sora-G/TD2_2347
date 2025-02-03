@@ -15,15 +15,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	//デストラクタ
-	delete playerModel_;
-	delete enemyModel_;
-	delete modelSkydome_;
-	delete player_;
-	delete enemy_;
-	delete skydome_;
-	delete railCamera_;
-	delete debugCamera_;
+	
 }
 
 void GameScene::Initialize() {
@@ -32,57 +24,11 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	//ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("ufoTexture.png");
+
 
 	//wavファイルを読み込んで追加
 	bgmHandle_ = audio_->LoadWave("sound/n003.wav");
 	playBGM_ = audio_->PlayWave(bgmHandle_, true);
-
-	//3Dモデルの読み込み
-	playerModel_ = Model::CreateFromOBJ("ufo", true);
-	enemyModel_ = Model::CreateFromOBJ("Earth", true);
-
-	//3Dモデルの生成
-	modelSkydome_ = Model::CreateFromOBJ("Spece-Sphere", true);
-
-	//ビュープロジェクションの初期化
-	viewProjection_.farZ = 300.0f;
-	viewProjection_.Initialize();
-
-	//自キャラの生成
-	player_ = new Player();
-	//自キャラの初期化
-	Vector3 playerPosition{ 0.0f, 0.0f, 40.0f };
-	player_->Initialize(playerModel_, textureHandle_, playerPosition);
-
-	//敵キャラの生成
-	enemy_ = new Enemy();
-	//敵キャラの初期化
-	enemy_->Initialize(enemyModel_, Vector3(5.0f, 0.0f, 50.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f));
-	//敵キャラに自キャラのアドレスを渡す
-	enemy_->SetPlayer(player_);
-
-	//天球の生成
-	skydome_ = new Skydome();
-	//天球の初期化
-	skydome_->Initialize(modelSkydome_);
-
-	//レールカメラの生成
-	railCamera_ = new RailCamera();
-	//レールカメラの初期化
-	railCamera_->Initialize(Vector3(0.0f, 0.0f, -300.0f), Vector3(0.0f, 0.0f, 0.0f));
-
-	//自キャラとレールカメラの親子関係を結ぶ
-	player_->SetParent(&railCamera_->GetWorldTransform());
-
-	// デバッグカメラの生成
-	debugCamera_ = new DebugCamera(1280, 720);
-
-	//軸方向表示の表示を有効
-	AxisIndicator::GetInstance()->SetVisible(true);
-	//軸方向表示が表示するビュープロジェクションを指定する（アドレス渡し）
-	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
 	titleScene_ = new TitleScene();
 	titleScene_->Initialize();
@@ -152,48 +98,6 @@ void GameScene::Update() {
 	}
 
 
-	//自キャラの更新処理
-	player_->Update();
-
-	//敵キャラの更新所理
-	enemy_->Update();
-
-	//天球の更新処理
-	skydome_->Update();
-
-	//衝突判定
-	CheckAllCollisions();
-
-	//デバッグカメラの更新
-	debugCamera_->Update();
-
-#ifdef DEBUG
-
-	if (input_->TriggerKey(DIK_Z)) {
-		isDebugCameraActive_ = true;
-	}
-	if (input_->TriggerKey(DIK_X)) {
-		isDebugCameraActive_ = false;
-	}
-	if (input_->TriggerKey(DIK_C)) {
-		viewProjection_.Initialize();
-	}
-
-#endif // DEBUG
-
-	//カメラの処理(レール)
-	if (isDebugCameraActive_ == true) {
-		railCamera_->Update();
-		viewProjection_.matView = railCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
-
-		// ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
-	}
-	else {
-		// ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
-	}
 }
 
 void GameScene::Draw() {
@@ -223,15 +127,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-
-	//自キャラの描画
-	player_->Draw(viewProjection_);
-
-	//敵キャラの描画
-	enemy_->Draw(viewProjection_);
-
-	//天球の描画
-	skydome_->Draw(viewProjection_);
+	playScene_->Draw();
+	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
