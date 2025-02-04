@@ -1,20 +1,21 @@
 #include "Skydome.h"
-#include "cassert"
+#include <cassert>
 
-void Skydome::Initialize(Model* model) {
-	// NULLポインタチェック
+void Skydome::Initialize(Model* model, ViewProjection* viewProjection) {
+	// Nullポインタチェック
 	assert(model);
-	// 引数で受け取ったデータをメンバ変数に記録
+
+	// 引数として受け取ったデータをメンバ変数に記録する
 	model_ = model;
-	//ワールド変換の初期化
+	viewProjection_ = viewProjection;
+
+	// ワールド変換の初期化
 	worldTransform_.Initialize();
 }
 
 void Skydome::Update() {
-	// ワールドトランスフォームの更新
-	worldTransform_.UpdateMatrix(false);
+	// 行列を定数バッファに転送
+	worldTransform_.TransferMatrix();
 }
 
-void Skydome::Draw(ViewProjection& viewProjection) {
-	model_->Draw(worldTransform_, viewProjection);
-}
+void Skydome::Draw() { model_->Draw(worldTransform_, *viewProjection_); }

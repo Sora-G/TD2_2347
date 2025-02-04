@@ -1,94 +1,91 @@
 #pragma once
-#include "WorldTransform.h"
-#include "Model.h"
-#include "Vector3.h"
-#include "EnemyBullet.h"
-#include <list>
+#include<cmath>
+#include <WorldTransform.h>
+#include <Model.h>
+#include"EnemyBullet.h"
+#include<list>
 
-//自キャラの前方宣言
+//自機クラスの前方宣言
 class Player;
 
-class Enemy {
-public:
+class Enemy
+{
+public://引数を書くところ
+	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
-	enum class Phase {
-		Approach, // 接近
-		Leave,    // 離脱
-	};
-
-	//デストラクタ
-	~Enemy();
-
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	void Initialize(Model* model, const Vector3& position, Vector3 approachVelocity, Vector3 leaveVelocity);
-
-	/// <summary>
-	/// 更新処理
-	/// </summary>
 	void Update();
 
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	void Draw(const ViewProjection& viewProjection);
+	void Draw(ViewProjection& viewProjection);
 
-	/// <summary>
-	/// 発射弾
-	/// </summary>
+	// 敵の弾の発射関数
 	void Fire();
 
-	/// <summary>
-	/// 自キャラのsetter
-	/// </summary>
-	/// <param name="player">自キャラ</param>
-	void SetPlayer(Player* player) { player_ = player; } 
+	//setterの利用
+	void SetPlayer(Player* player) { player_ = player; }
 
-	/// <summary>
-	/// ワールド座標を取得
-	/// </summary>
+	// 敵キャラのワールド座標を取得
 	Vector3 GetWorldPosition();
 
-	// 衝突を検出したら呼び戻されるコールバック関数
+	// 衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
 	// 弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
+	const std::list<std::shared_ptr<EnemyBullet>>& GetEnemyBullets() const { return bullets_; }
 
-	// 半径
-	const float rad = 1.0f;
+	float GetRadius() { return radius_; }
 
-	//int GetHP() { return hp_; }
+	int GetHp() { return hp_; }
 
-private:
+private: // メンバ関数
 
-	//ワールド変換
+	// ワールド変換データ
 	WorldTransform worldTransform_;
-	//モデル
-	Model* model_;
-	Model* bulletModel_;
-	//テクスチャハンドル
-	uint32_t textureHandle_;
+
+	// モデル
+	Model* model_ = nullptr;
+
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0u;
+
+	// 速度
+	Vector3 velocity_;
+
 	//接近速度
-	Vector3 approachVelocity_;
+	Vector3 approachVel;
+
 	//離脱速度
-	Vector3 leaveVelocity_;
-	//フェーズ
+	Vector3 leaveVel;
+
+	//行動フェーズ
+	enum class Phase
+	{
+		Approach,//接近する
+		Leave,//離脱する
+	};
+
+	//初期フェーズ
 	Phase phase_ = Phase::Approach;
-	//弾
-	std::list<EnemyBullet*> bullets_;
-	//発射クールタイム
-	int shotCoolTime_;
-	int shotCoolTimeMax_;
+
+	//敵の弾
+	std::list<std::shared_ptr<EnemyBullet>> bullets_;
+
+	//発射タイマー
+	int32_t fireTimer = 0;
+
+	// 発射間隔
+	static const int kFireInterval = 60;
+
 	//自キャラ
 	Player* player_ = nullptr;
 
-	Vector3 playerWorldPos;
-	Vector3 enemyWorldPos;
-	Vector3 e2pVector;
-	Vector3 e2pNormal;
+	Vector3 playerWorldPosition;
 
-	/*const int kEnemyMaxHp = 10;
-	int hp_;*/
+	Vector3 enemyWorldPosition;
+
+	// 弾
+	std::list<EnemyBullet*> enemybullets_;
+
+	float radius_ = 3.0f;
+
+	int hp_ = 1;
 };

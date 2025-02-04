@@ -70,6 +70,9 @@ public: // メンバ関数
 	/// <returns>トリガーか</returns>
 	bool TriggerKey(BYTE keyNumber) const;
 
+
+	bool ReleseKey(BYTE keyNumber) const;
+
 	/// <summary>
 	/// 全キー情報取得
 	/// </summary>
@@ -163,7 +166,7 @@ public: // メンバ関数
 
 private:
 	static BOOL CALLBACK
-	    EnumJoysticksCallback(const DIDEVICEINSTANCE* pdidInstance, VOID* pContext) noexcept;
+		EnumJoysticksCallback(const DIDEVICEINSTANCE* pdidInstance, VOID* pContext) noexcept;
 	Input() = default;
 	~Input();
 	Input(const Input&) = delete;

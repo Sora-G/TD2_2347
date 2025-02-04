@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Audio.h"
 #include "DirectXCommon.h"
 #include "Input.h"
@@ -7,12 +6,11 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Player.h"
-#include "DebugCamera.h"
-#include "Enemy.h"
-#include "Skydome.h"
-#include "RailCamera.h"
-
+#include<vector>
+#include"Player.h"
+#include"DebugCamera.h"
+#include"Enemy.h"
+#include"Skydome.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -44,10 +42,13 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-	/// <summary>
-	/// 衝突判定と応答
-	/// </summary>
+	//大親分による判定
+	//衝突判定と応答
 	void CheckAllCollisions();
+
+	bool IsFinished() const { return isFinished; }
+
+	bool IsClear() const { return isClear; }
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -55,44 +56,45 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 
 	//テクスチャハンドル
-	uint32_t textureHandle_ = 0;
+	uint32_t textureHandle = 0;
 
-	//3Dモデルデータ
-	Model* playerModel_ = nullptr;
-	Model* enemyModel_ = nullptr;
 
-	//ビュープロジェクション
-	ViewProjection viewProjection_;
+	// 3Dモデルデータ
+	Model* model_ = nullptr;
+
 
 	//自キャラ
 	Player* player_ = nullptr;
 
-	// 敵キャラ
+	//敵
 	Enemy* enemy_ = nullptr;
 
-	//3Dモデル
-	Model* modelSkydome_ = nullptr;
 
-	//天球
-	Skydome* skydome_ = nullptr;
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
 
-	RailCamera* railCamera_ = nullptr;
+	//デバックカメラ有効
+	bool isDebugCameraActive_ = false;
 
-	//デバッグカメラ有効
-	bool isDebugCameraActive_ = true;
-
-	//デバッグカメラ
+	//デバックカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	//音
-	uint32_t bgmHandle_;
-	uint32_t playBGM_;
+	//天球
+	Skydome* skyDome_ = nullptr;
 
-	//時間制限（タイマー)
-	uint32_t StegeTimer = 30;
+	// 天球モデル
+	Model* modelSkydome = nullptr;
 
-	Model* title = nullptr;
+	//終了フラグ
+	bool isFinished = false;
 
+	bool isClear = false;
+
+	// 音
+	uint32_t music;
+
+	// 音声再生
+	uint32_t playMusic;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

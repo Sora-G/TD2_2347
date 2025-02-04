@@ -1,59 +1,52 @@
 #pragma once
+#include "MathUtilityForText.h"
 #include "Model.h"
 #include "WorldTransform.h"
+class EnemyBullet
+{
+public: // メンバ関数
 
-/// <summary>
-/// 敵の弾
-/// </summary>
-class EnemyBullet {
-
-public:
-
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	/// <param name="model">モデル</param>
-	/// <param name="position">初期座標</param>
+	//初期化
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
-	/// <summary>
-	/// 更新処理
-	/// </summary>
+	//更新
 	void Update();
 
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	/// <param name="viewProjection">ビュープロジェクション</param>
+	//描画
 	void Draw(const ViewProjection& viewProjection);
+	bool GetIsDead() { return isDead_; }
 
-	bool IsDead() const { return isDead_; }
+	//寿命＜ｆｒｍ＞
+	static const int32_t kLifeTime = 60 * 5;
 
-	/// <summary>
-	/// ワールド座標を取得
-	/// </summary>
-	Vector3 GetWorldPosition();
-
-	// 衝突を検出したら呼び戻されるコールバック関数
+	// 衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
-	// 半径
-	const float rad = 1.0f;
+	float GetRadius() { return radius_; }
 
-private:
+
+	// 自キャラのワールド座標を取得
+	Vector3 GetWorldPosition();
+
+private: // メンバ変数
 
 	// ワールド変換データ
 	WorldTransform worldTransform_;
-	// モデルのポインタ
+
+	// モデル
 	Model* model_ = nullptr;
+
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+
 	// 速度
 	Vector3 velocity_;
-	// 寿命<frm>
-	static const int32_t kLifeTime = 60 * 5;
-	// デスタイマー
+
+	//デスタイマー
 	int32_t deathTimer_ = kLifeTime;
-	// デスフラグ
+
+	//デスフラグ
 	bool isDead_ = false;
+
+	float radius_ = 0.5f;
 };

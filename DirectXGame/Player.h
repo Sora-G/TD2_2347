@@ -1,25 +1,22 @@
 #pragma once
 #include "Model.h"
-#include "WorldTransform.h"
-#include "Input.h"
-#include "PlayerBullet.h"
-#include <list>
-
+#include"WorldTransform.h"
+#include<Input.h>
+#include"PlayerBullet.h"
+#include<List>
+/// <summary>
+///	自キャラ
+/// </summary>
 class Player {
 
-public:
-
-	/// <summary>
-	/// デストラクタ
-	/// </summary>
-	~Player();
-
+public://引数を書くところ
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model, uint32_t textureHandle, Vector3 position);
+	void Initialize(Model* model, uint32_t textureHandle);//void Initialize(Model* model, ViewProjection* viewProjection);
+
 
 	/// <summary>
 	/// 更新処理
@@ -29,49 +26,50 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(ViewProjection &viewProjection);
+	void Draw(ViewProjection& viewProjection);
 
-	/// <summary>
-	/// 旋回処理
-	/// </summary>
 	void Rotate();
 
-	/// <summary>
-	/// 攻撃
-	/// </summary>
+	//void Move();
+
 	void Attack();
 
-	/// <summary>
-	/// ワールド座標を取得
-	/// </summary>
+	~Player();
+
+	// 自キャラのワールド座標を取得
 	Vector3 GetWorldPosition();
 
-	//衝突を検出したら呼び戻されるコールバック関数
+	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
-	//弾リストを取得
-	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+	// 弾リストを取得
+	const std::list<std::shared_ptr<PlayerBullet>>& GetBullets() const { return bullets_; }
 
-	// 半径
-	const float rad = 1.0f;
+	float GetRadius() { return radius_; }
 
-	/// <summary>
-	/// 親となるワールドトランスフォームをセット
-	/// </summary>
-	/// <param name="parent">親となるワールドトランスフォームをセット</param>
-	void SetParent(const WorldTransform* parent);
+	int GetHp() { return hp_; }
 
-private:
+private://関数（メンバ変数）
+
 
 	//ワールド変換データ
 	WorldTransform worldTransform_;
-	//モデル
+
+
+	// モデル
 	Model* model_ = nullptr;
-	Model* bulletModel_ = nullptr;
+
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+
 	//キーボード入力
 	Input* input_ = nullptr;
+
 	//弾
-	std::list<PlayerBullet*> bullets_;
+	std::list<std::shared_ptr<PlayerBullet>> bullets_;
+
+	float radius_ = 0.5f;
+
+	int hp_ = 1;
+	//ViewProjection* viewProjection_ = nullptr;
 };
